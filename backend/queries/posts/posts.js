@@ -171,9 +171,5 @@ module.exports = {
             console.log(error);
             next(error);
         }
-    },
-    
-    getPostTags: async (req, res, next) => {
-        
     }
 } 
