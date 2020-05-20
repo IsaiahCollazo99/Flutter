@@ -45,7 +45,7 @@ module.exports = {
                     res.status(200).json({
                         status: "Ok",
                         posts,
-                        message: "Retrieved all posts"
+                        message: "Retrieved all posts."
                     });
                 } else {
                     throw { status: 404, error: "No posts found." };
@@ -61,7 +61,31 @@ module.exports = {
     },
 
     getAllPosts: async (req, res, next) => {
-        
+        try {
+            const posts = await db.any(
+                `SELECT users.username, full_posts.*
+                FROM (
+                    SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
+                    FROM posts
+                    LEFT JOIN tags on tags.post_id = posts.id
+                    GROUP BY posts.id
+                    ORDER BY created_at DESC
+                ) AS full_posts
+                JOIN users on users.id = full_posts.poster_id`
+            )
+
+            if(posts.length) {
+                res.json({
+                    status: "Ok",
+                    posts,
+                    message: "Retrieved all posts."
+                })
+            } else {
+                throw {status: 404, error: "No posts found."}
+            }
+        } catch (error) {
+            next(error);
+        }
     },
     
     getPostById: async (req, res, next) => {
