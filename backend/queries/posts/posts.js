@@ -7,10 +7,10 @@ module.exports = {
         const id = getId ? getId : postId;
         try {
             if(id) {
+                await db.one("Select * FROM posts where id=$1", id);
                 next();
             } else {
-                let post = await db.one("Select * FROM posts where id=$1", id);
-                next();
+                throw { error: 400, error: "No ID supplied"}
             }
         } catch (error) {
             if(error.received === 0) {
@@ -38,7 +38,7 @@ module.exports = {
                         GROUP BY posts.id
                         ORDER BY created_at DESC
                     ) AS full_posts
-                    JOIN users on users.id = full_posts.poster_id`, search
+                    JOIN users on users.id = full_posts.poster_id;`, search
                 );
 
                 if(posts.length) {
@@ -71,12 +71,12 @@ module.exports = {
                     GROUP BY posts.id
                     ORDER BY created_at DESC
                 ) AS full_posts
-                JOIN users on users.id = full_posts.poster_id`
+                JOIN users on users.id = full_posts.poster_id;`
             )
 
             if(posts.length) {
                 res.json({
-                    status: "Ok",
+                    status: "OK",
                     posts,
                     message: "Retrieved all posts."
                 })
@@ -89,7 +89,31 @@ module.exports = {
     },
     
     getPostById: async (req, res, next) => {
-        
+        try {
+            const { id } = req.params;
+            const post = await db.one(
+                `SELECT users.username, full_posts.*
+                FROM (
+                    SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
+                    FROM posts
+                    LEFT JOIN tags on tags.post_id = posts.id
+                    GROUP BY posts.id
+                    ORDER BY created_at DESC
+                ) AS full_posts
+                JOIN users on users.id = full_posts.poster_id
+                WHERE full_posts.id=$1;`, id
+            )
+
+            res.status(200).json({
+                status: "OK",
+                post,
+                message: "Retrieved post at id " + id
+            })
+            
+        } catch (error) {
+            console.log(error);
+            next(error);
+        }
     },
     
     createPost: async (req, res, next) => {
