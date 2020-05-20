@@ -1,4 +1,8 @@
 module.exports = {
+    isPostExisting: async (req, res, next) => {
+
+    },
+    
     getAllPosts: async (req, res, next) => {
         
     },
