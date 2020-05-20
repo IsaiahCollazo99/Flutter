@@ -117,7 +117,39 @@ module.exports = {
     },
     
     createPost: async (req, res, next) => {
-        
+        try {
+            const {
+                poster_id,
+                body,
+                created_at
+            } = req.body;
+
+           const tags = ['h', 'g', 'p'];
+
+            const post = await db.one(
+                `INSERT INTO posts (poster_id, body, created_at)
+                VALUES ($1, $2, $3)
+                RETURNING *`, [poster_id, body, created_at]
+            )
+
+            tags.map(async (tag) => {
+                return await db.one(
+                    `INSERT INTO tags (post_id, name)
+                    VALUES ($1, $2)
+                    RETURNING *`, [post.id, tag]
+                )
+            })
+
+            res.status(200).json({
+                status: "OK",
+                post,
+                message: "Created post."
+            })
+
+        } catch (error) {
+            console.log(error);
+            next(error);
+        }
     },
     
     deletePost: async (req, res, next) => {
