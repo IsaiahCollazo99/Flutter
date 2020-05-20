@@ -153,7 +153,24 @@ module.exports = {
     },
     
     deletePost: async (req, res, next) => {
-        
+        try {
+            const { id } = req.params;
+            const post = await db.one(`
+                DELETE FROM posts 
+                WHERE id=$1
+                RETURNING *
+            `, id)
+
+            res.status(200).json({
+                status: "OK",
+                post,
+                message: "Deleted post."
+            })
+
+        } catch (error) {
+            console.log(error);
+            next(error);
+        }
     },
     
     getPostTags: async (req, res, next) => {
