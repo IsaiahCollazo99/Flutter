@@ -1,6 +1,7 @@
 const app = require("express")();
 const cors = require("cors");
-const bodyParser = requrie("body-parser");
+const bodyParser = require("body-parser");
+const postsRouter = require("./routes/posts/posts");
 
 const port = 3001;
 const path = require("path");
@@ -8,6 +9,8 @@ const path = require("path");
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+
+app.use("/api/posts", postsRouter);
 
 app.use((error, req, res, next) => {
     if(error.status) {
