@@ -1,44 +1,37 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import FeedPage from './components/FeedPage/FeedPage';
 import './App.css';
 import NavBar from './components/General/NavBar';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import LogIn from './components/Login/LogIn';
 import Profile from './components/Profile/Profile';
-import AuthProvider, { AuthContext } from './providers/AuthContext';
+import { AuthRoute, ProtectedRoute } from './util/routesUtil';
 
 function App() {
-    const { currentUser } = useContext(AuthContext);
-
-    const displayPage = () => {
-        if(currentUser) {
-            return (
-                <>
-                    <NavBar />
-                    <Route exact path={"/"}>
-                        <FeedPage />
-                    </Route>
-    
-                    <Route path={"/profile"}>
-                        <Profile />
-                    </Route>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <Redirect from="/" to="/login" />
-                    <Route path={"/login"}>
-                        <LogIn />
-                    </Route>
-                </>
-            )
-        }
-    }
-    
     return (
         <div className="App">
-            {displayPage()}
+            <NavBar />
+            <Switch>
+                <Route exact path={"/"}>
+                    <FeedPage />
+                </Route>
+
+                <AuthRoute path={"/login"}>
+                    <LogIn />
+                </AuthRoute>
+
+                <ProtectedRoute path={"/:userName"}>
+                    <Profile />
+                </ProtectedRoute>
+
+
+                <Route>
+                    <div className="notFound">
+                        404 Page Not Found
+                    </div>
+                </Route>
+            </Switch>
+
         </div>
     )
 }

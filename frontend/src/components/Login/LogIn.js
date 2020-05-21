@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
+import { AuthRoute } from '../../util/routesUtil';
 
 const LogIn = () => {
     const location = useLocation();
@@ -12,13 +13,13 @@ const LogIn = () => {
                 <Link to={"/login/createAccount"}>Sign Up</Link> :
                 <Link to={"/login"}>Log In</Link>
             }
-            <Route exact path={"/login"}>
+            <AuthRoute exact path={"/login"}>
                 <LogInForm />
-            </Route>
+            </AuthRoute>
 
-            <Route exact path={"/login/createAccount"}>
+            <AuthRoute exact path={"/login/createAccount"}>
                 <SignUpForm />
-            </Route>
+            </AuthRoute>
         </div>
     )
 }
