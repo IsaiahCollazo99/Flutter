@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { apiURL } from '../../util/apiURL';
+import { signUp } from '../../util/firebaseFunctions'
 
 const SignUpForm = () => {
     const [email, setEmail] = useState("");
@@ -13,6 +14,8 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            let res = await signUp(email, password);
+            await axios.post(API + "/api/users", {id: res.user.uid, email})
             // sign up with firebase and send results to our backend
             history.push("/")
         } catch (error) {
