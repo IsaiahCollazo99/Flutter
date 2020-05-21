@@ -29,9 +29,9 @@ const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, [])
 
-    if(loading) return (<div>Loading</div>)
+    if(loading) return (<div>Loading...</div>)
     return (
-        <AuthContext.Provider value={currentUser, token}>
+        <AuthContext.Provider value={{currentUser, token}}>
             {children}
         </AuthContext.Provider>
     )

@@ -8,7 +8,6 @@ const NavBar = () => {
         <nav>
             <NavLink exact to={"/"}>Home</NavLink>
             <NavLink exact to={"/profile"}>Profile</NavLink>
-            <NavLink exact to={"/login"}>Login</NavLink>
             <button onClick={logOut}>Log Out</button>
         </nav>
     )
