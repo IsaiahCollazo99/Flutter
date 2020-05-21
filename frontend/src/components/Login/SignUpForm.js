@@ -16,7 +16,6 @@ const SignUpForm = () => {
         try {
             let res = await signUp(email, password);
             await axios.post(API + "/api/users", {id: res.user.uid, email})
-            // sign up with firebase and send results to our backend
             history.push("/")
         } catch (error) {
             setError(error.message);
