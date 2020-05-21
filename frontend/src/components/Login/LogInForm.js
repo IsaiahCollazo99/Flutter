@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-const { logIn } = '../../util/firebaseFunctions';
+import { logIn } from '../../util/firebaseFunctions';
 
 const LogInForm = () => {
     const [email, setEmail] = useState("");
