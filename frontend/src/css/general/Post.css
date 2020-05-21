@@ -1,0 +1,9 @@
+.postContainer {
+    border: 1px solid black;
+    margin: 25px;
+    padding: 25px;
+}
+
+.postInfo {
+    margin-bottom: 5px;
+}
