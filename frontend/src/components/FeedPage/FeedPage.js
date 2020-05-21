@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Post from '../General/Post';
 
 const FeedPage = () => {
     const [posts, setPosts] = useState([]);
@@ -10,9 +11,7 @@ const FeedPage = () => {
             let dbPosts = res.data.posts;
             setPosts(dbPosts.map((post) => {
                 return (
-                    <div className="postContainer" key={post.id}>
-                        {post.body}
-                    </div>
+                    <Post post={post} key={post.id}/>
                 )
             }))
         } catch(error) {
