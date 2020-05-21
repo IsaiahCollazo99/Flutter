@@ -24,7 +24,6 @@ function App() {
                     <Profile />
                 </ProtectedRoute>
 
-
                 <Route>
                     <div className="notFound">
                         404 Page Not Found

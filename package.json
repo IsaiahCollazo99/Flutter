@@ -1,0 +1,21 @@
+{
+  "name": "Flutter",
+  "version": "1.0.0",
+  "description": "Flutter is a Social Media Web App taking inspiration from the likes of Twitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd backend && npm install && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaiahCollazo99/Flutter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsaiahCollazo99/Flutter/issues"
+  },
+  "homepage": "https://github.com/IsaiahCollazo99/Flutter#readme"
+}

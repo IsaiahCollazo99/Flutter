@@ -2,6 +2,7 @@ const app = require("express")();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const { checkFirebaseToken } = require("./middleware/auth");
 const postsRouter = require("./routes/posts/posts");
 
 const PORT = process.env.PORT;
