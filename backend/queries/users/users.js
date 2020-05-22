@@ -1,6 +1,27 @@
 const db = require("../../db/db");
 
-module.exports = {
+module.exports = {    
+    isUserExisting: async (req, res, next) => {
+        const { id } = req.params;
+        try {
+            if(id) {
+                await db.one("Select * FROM posts where id=$1", id);
+                next();
+            } else {
+                throw { error: 400, error: "No ID supplied"}
+            }
+        } catch (error) {
+            if(error.received === 0) {
+                res.status(404).json({
+                    status: 404,
+                    error: `User ID: ${id} doesn't exist`
+                })
+            } else {
+                next(error);
+            }
+        }
+    },
+
     getAllUsers: async (req, res, next) => {
         try {
             let users = await db.any(
@@ -17,6 +38,27 @@ module.exports = {
                 throw { status: 404, error: "No users found"}
             }
         } catch (error) {
+            next(error);
+        }
+    },
+
+    createUser: async (req, res, next) => {
+        try {
+            const { 
+                id, email, full_name, username
+            } = req.body;
+
+            let user = await db.one(
+                `INSERT INTO users (id, email, full_name, username)
+                VALUES ($1, $2, $3, $4) RETURNING *`, [id, email, full_name, username]
+            )
+
+            res.status(200).json({
+                status: "OK",
+                user,
+                message: "Created user."
+            })
+        } catch(error) {
             next(error);
         }
     }
