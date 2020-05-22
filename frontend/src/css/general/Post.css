@@ -18,6 +18,10 @@
     display: flex;
 }
 
+.postFullName {
+    text-decoration: none;
+}
+
 .postFullName:hover {
     text-decoration: underline;
 }

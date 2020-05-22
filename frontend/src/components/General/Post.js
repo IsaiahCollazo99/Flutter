@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import '../../css/general/Post.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthContext';
 import { apiURL } from '../../util/apiURL';
 
@@ -12,7 +12,8 @@ const Post = ({ post }) => {
     const API = apiURL();
 
     const displayPost = (e) => {
-        if(e.target.nodeName !== "BUTTON") {
+        debugger;
+        if(e.target.nodeName !== "BUTTON" && e.target.className !== "postFullName") {
             history.push(`/${post.username}/status/${post.id}`);
         }
     }
@@ -48,7 +49,9 @@ const Post = ({ post }) => {
             </div> */}
 
             <div className="postInfo">
-                <p className="postFullName">{post.full_name}</p>
+                <Link to={`/${post.username}`} className="postFullName">
+                    <p className="postFullName">{post.full_name}</p>
+                </Link>
                 <p className="postUsername">@{post.username}</p>
             </div>
 
