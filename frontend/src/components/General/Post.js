@@ -23,14 +23,16 @@ const Post = ({ post }) => {
     }
 
     const displayDelete = () => {
-        if(currentUser.id === post.poster_id) {
-            return (
-                <button onClick={deletePost}>Delete</button>
-            )
-        } else {
-            return (
-                null
-            )
+        if(currentUser) {
+            if(currentUser.id === post.poster_id) {
+                return (
+                    <button onClick={deletePost}>Delete</button>
+                )
+            } else {
+                return (
+                    null
+                )
+            }
         }
     }
     
