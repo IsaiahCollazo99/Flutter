@@ -131,13 +131,16 @@ module.exports = {
                 RETURNING *`, [poster_id, body, created_at]
             )
 
-            tags.map(async (tag) => {
-                return await db.one(
-                    `INSERT INTO tags (post_id, name)
-                    VALUES ($1, $2)
-                    RETURNING *`, [post.id, tag]
-                )
-            })
+            if(tags) {
+                tags.map(async (tag) => {
+                    return await db.one(
+                        `INSERT INTO tags (post_id, name)
+                        VALUES ($1, $2)
+                        RETURNING *`, [post.id, tag]
+                    )
+                })
+            }
+
 
             res.status(200).json({
                 status: "OK",
