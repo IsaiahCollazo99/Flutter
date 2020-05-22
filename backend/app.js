@@ -4,15 +4,17 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const { checkFirebaseToken } = require("./middleware/auth");
 const postsRouter = require("./routes/posts/posts");
+const usersRouter = require("./routes/users/users");
 
 const PORT = process.env.PORT;
-const path = require("path");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 app.use("/api/posts", postsRouter);
+
+app.use("/api/users", usersRouter);
 
 app.use((error, req, res, next) => {
     console.log(error);
