@@ -14,8 +14,8 @@ const Post = ({ post }) => {
             </div> */}
 
             <div className="postInfo">
-                {/* Poster Name */}
-                {post.username}
+                <p className="postFullName">{post.full_name}</p>
+                <p className="postUsername">@{post.username}</p>
             </div>
 
             <div className="post">
