@@ -12,6 +12,13 @@
 .postInfo {
     margin-bottom: 5px;
     display: flex;
-    flex-direction: column;
+}
 
+.postFullName:hover {
+    text-decoration: underline;
+}
+
+.postUsername {
+    margin-left: 10px;
+    color: rgb(185, 185, 185);
 }
