@@ -1,3 +1,7 @@
+.postLink {
+    text-decoration: none;
+}
+
 .postContainer {
     border: 1px solid white;
     margin: 25px;

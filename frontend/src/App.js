@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import LogIn from './components/Login/LogIn';
 import Profile from './components/Profile/Profile';
 import { AuthRoute, ProtectedRoute } from './util/routesUtil';
+import DisplayPost from './components/General/DisplayPost';
 
 function App() {
     return (
@@ -20,10 +21,13 @@ function App() {
                     <LogIn />
                 </AuthRoute>
 
-                <ProtectedRoute path={"/:userName"}>
+                <ProtectedRoute exact path={"/:userName"}>
                     <Profile />
                 </ProtectedRoute>
 
+                <Route path={"/:username/status/:postId"}>
+                    <DisplayPost />
+                </Route>
                 <Route>
                     <div className="notFound">
                         404 Page Not Found
