@@ -1,7 +1,7 @@
--- DROP DATABASE IF EXISTS flutter_db;
--- CREATE DATABASE flutter_db;
+DROP DATABASE IF EXISTS flutter_db;
+CREATE DATABASE flutter_db;
 
--- \c flutter_db;
+\c flutter_db;
 
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS posts;
