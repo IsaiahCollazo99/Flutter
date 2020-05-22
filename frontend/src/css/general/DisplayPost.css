@@ -1,0 +1,4 @@
+.displayPostContainer {
+    display: flex;
+    flex-direction: column;
+}
