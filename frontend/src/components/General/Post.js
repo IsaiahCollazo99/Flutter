@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import '../../css/general/Post.css';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthContext';
 import { apiURL } from '../../util/apiURL';
 

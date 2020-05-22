@@ -26,6 +26,7 @@ const MakePostForm = ({ makePostSubmit }) => {
 
         if(wordCount >= 0 && wordCount < 280) {
             makePostSubmit(postBody, tags);
+            setWordCount(280);
             setPostBody("");
         }
     }
