@@ -5,7 +5,7 @@ module.exports = {
         const { id } = req.params;
         try {
             if(id) {
-                await db.one("Select * FROM posts where id=$1", id);
+                await db.one("Select * FROM users where id=$1", id);
                 next();
             } else {
                 throw { error: 400, error: "No ID supplied"}
