@@ -41,7 +41,7 @@ const FeedPage = () => {
                 tagFound = true;
             }
 
-            if(tagFound = true) {
+            if(tagFound === true) {
                 if(char === " ") {
                     tagFound = false;
                     tags.push(currTag);
