@@ -23,8 +23,10 @@ const MakePostForm = ({ makePostSubmit }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(wordCount >= 0) {
+
+        if(wordCount >= 0 && wordCount < 280) {
             makePostSubmit(postBody, tags);
+            setPostBody("");
         }
     }
 
