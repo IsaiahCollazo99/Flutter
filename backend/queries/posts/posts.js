@@ -29,7 +29,7 @@ module.exports = {
             const { search } = req.query;
             if(search) {
                 const posts = await db.any(
-                    `SELECT users.username, full_posts.*
+                    `SELECT users.username, users.full_name, full_posts.*
                     FROM (
                         SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                         FROM posts
@@ -63,7 +63,7 @@ module.exports = {
     getAllPosts: async (req, res, next) => {
         try {
             const posts = await db.any(
-                `SELECT users.username, full_posts.*
+                `SELECT users.username, users.full_name, full_posts.*
                 FROM (
                     SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                     FROM posts
@@ -92,7 +92,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const post = await db.one(
-                `SELECT users.username, full_posts.*
+                `SELECT users.username, users.full_name, full_posts.*
                 FROM (
                     SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                     FROM posts
@@ -121,10 +121,9 @@ module.exports = {
             const {
                 poster_id,
                 body,
+                tags,
                 created_at
             } = req.body;
-
-           const tags = ['h', 'g', 'p'];
 
             const post = await db.one(
                 `INSERT INTO posts (poster_id, body, created_at)
