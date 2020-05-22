@@ -54,3 +54,6 @@
 -- UPDATE posts
 -- SET is_retweet = false
 -- WHERE id>3;
+
+-- ALTER TABLE posts
+-- ADD retweeter_id VARCHAR REFERENCES users(id) ON DELETE CASCADE;
