@@ -42,6 +42,23 @@ module.exports = {
         }
     },
 
+    getUserById: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            let user = await db.one(
+                `SELECT * FROM users
+                WHERE id=$1`, id
+            )
+            res.status(200).json({
+                status: "OK",
+                user,
+                message: "Retrieved user."
+            })
+        } catch (error) {
+            next(error);
+        }
+    },
+
     createUser: async (req, res, next) => {
         try {
             const { 
