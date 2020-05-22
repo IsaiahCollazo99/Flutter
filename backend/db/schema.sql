@@ -13,8 +13,7 @@ CREATE TABLE users
   full_name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
   username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NUll,
-  bio TEXT NOT NULL
+  bio TEXT
 );
 
 CREATE TABLE posts
