@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
 import Post from '../General/Post';
+import MakePostForm from './MakePostForm';
+import { AuthContext } from '../../providers/AuthContext';
 
 const FeedPage = () => {
+    const { currentUser } = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const API = apiURL();
     
@@ -22,14 +25,19 @@ const FeedPage = () => {
         } catch(error) {
             console.log(error);
         }
-        
     }
+
     useEffect(() => {
         getAllPost();
     })
 
+    const makePostSubmit = (postBody) => {
+        debugger;
+    }
+
     return (
         <div className="feedPageContainer">
+            <MakePostForm makePostSubmit={makePostSubmit}/>
             {posts}
         </div>
     )
