@@ -10,7 +10,7 @@ const SignUpForm = () => {
     const password = useInput("");
     const name = useInput("");
     const username = useInput("");
-    
+
     const [error, setError] = useState(null);
     const history = useHistory();
     const API = apiURL();
@@ -19,7 +19,13 @@ const SignUpForm = () => {
         e.preventDefault();
         try {
             let res = await signUp(email.value, password.value);
-            await axios.post(API + "/api/users", {id: res.user.uid, email: email.value})
+            await axios.post(API + "/api/users", {
+                id: res.user.uid, 
+                email: email.value, 
+                full_name: name.value, 
+                username: username.value
+            })
+            debugger;
             history.push("/")
         } catch (error) {
             setError(error.message);
