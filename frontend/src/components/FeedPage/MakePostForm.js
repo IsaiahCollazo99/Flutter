@@ -7,6 +7,9 @@ const MakePostForm = ({ makePostSubmit }) => {
     const [ wordCount, setWordCount ] = useState(280);
     const [ wordCountStyle, setWordCountStyle ] = useState({ color: "Green" });
     const [ postBody, setPostBody ] = useState("");
+    const [ tagFound, setTagFound ] = useState(false);
+    const [ tags, setTags ] = useState([]);
+    const [ currTag, setCurrTag ] = useState("");
 
     useEffect(() => {
         if(wordCount < 0) {
@@ -21,17 +24,34 @@ const MakePostForm = ({ makePostSubmit }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         if(wordCount >= 0) {
-            makePostSubmit(postBody);
+            makePostSubmit(postBody, tags);
         }
     }
 
     const onTextAreaType = (e) => {
-        if(e.target.value.length < postBody.length) {
+        let post = e.target.value
+        let lastChar = post[post.length - 1]
+
+        if(tagFound) {
+            if(lastChar === " ") {
+                setTagFound(false);
+                setTags([...tags, currTag]);
+                setCurrTag("");
+            } else {
+                setCurrTag(currTag + lastChar);
+            }
+        }
+        
+        if(lastChar === "#") {
+            setTagFound(true);
+        }
+        
+        if(post.length < postBody.length) {
             setWordCount(wordCount + 1);
-        } else if (e.target.value.length > postBody.length) {
+        } else if (post.length > postBody.length) {
             setWordCount(wordCount - 1);
         }
-        setPostBody(e.target.value);
+        setPostBody(post);
     }
 
 

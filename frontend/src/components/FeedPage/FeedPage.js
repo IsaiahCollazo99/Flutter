@@ -31,32 +31,7 @@ const FeedPage = () => {
         getAllPost();
     })
 
-    const findTags = (postBody) => {
-        let tags = []
-        let tagFound = false;
-        let currTag = "";
-        
-        for(let char of postBody) {
-            if(char === "#") {
-                tagFound = true;
-            }
-
-            if(tagFound === true) {
-                if(char === " ") {
-                    tagFound = false;
-                    tags.push(currTag);
-                    currTag = "";
-                } else {
-                    currTag += char
-                }
-            }
-        }
-
-        return tags.length ? tags : null
-    }
-
-    const makePostSubmit = async (postBody) => {
-        let tags = findTags(postBody);
+    const makePostSubmit = async (postBody, tags) => {
         let res = await axios.post(API + "/api/posts", {
             poster_id: currentUser.id, 
             body: postBody,
