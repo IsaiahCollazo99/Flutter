@@ -1,9 +1,8 @@
 .searchBarContainer {
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
     overflow: scroll;
     margin-top: 10px;
 }

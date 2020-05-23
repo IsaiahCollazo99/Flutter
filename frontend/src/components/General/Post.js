@@ -18,16 +18,15 @@ const Post = ({ post }) => {
         }
     }
 
-    const deletePost = async (e) => {
-        let postId = e.target.parentNode.id;
-        let res = await axios.delete(API + "/api/posts/" + postId);
+    const deletePost = async () => {
+        let res = await axios.delete(API + "/api/posts/" + post.id);
     }
 
     const displayDelete = () => {
         if(currentUser) {
             if(currentUser.id === post.poster_id) {
                 return (
-                    <button onClick={deletePost}>Delete</button>
+                    <p onClick={deletePost} className="deletePost">Delete</p>
                 )
             } else {
                 return (
@@ -38,8 +37,7 @@ const Post = ({ post }) => {
     }
     
     return (
-        <div className="postContainer" id={post.id} onClick={displayPost}>
-            {displayDelete()}
+        <div className="postContainer" onClick={displayPost}>
             {/* <div className="postLeft">
                 Profile Picture
             </div> */}
@@ -49,16 +47,22 @@ const Post = ({ post }) => {
             </div> */}
 
             <div className="postInfo">
-                <Link to={`/${post.username}`} className="postFullName">
-                    <p className="postFullName">{post.full_name}</p>
-                </Link>
-                <p className="postUsername">@{post.username}</p>
+                <div className="postInfoLeft">
+                    <Link to={`/${post.username}`} className="postFullName">
+                        <p className="postFullName">{post.full_name}</p>
+                    </Link>
+                    <p className="postUsername">@{post.username}</p>
+                </div>
+
+                <div className="postInfoRight">
+                    {displayDelete()}
+                </div>
             </div>
 
             <div className="post">
-                <div className="postBody">
+                <p className="postBody">
                     {post.body}
-                </div>
+                </p>
                     
                 {/* <div className="postActivity">
                     Likes, Comments, Retweets & Bookmarks Here

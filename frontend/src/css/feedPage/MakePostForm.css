@@ -13,6 +13,7 @@
     border-radius: 25px;
     padding: 10px;
     border: 3px solid blue;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 .postFormBody:focus {
@@ -24,11 +25,13 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: 5px;
+    font-family: 'Lato', sans-serif;
 }
 
 .wordCount {
     font-size: 32px;
     margin-left: 5px;
+    font-family: 'Lato', sans-serif;
 }
 
 .postFormSubmit {
