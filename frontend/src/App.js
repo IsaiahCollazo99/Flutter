@@ -8,6 +8,7 @@ import Profile from './components/Profile/Profile';
 import { AuthRoute, ProtectedRoute } from './util/routesUtil';
 import DisplayPost from './components/General/DisplayPost';
 import Discover from './components/General/Discover';
+import SearchPage from './components/SearchPage/SearchPage';
 
 function App() {
     const history = useHistory();
@@ -30,17 +31,19 @@ function App() {
                     <LogIn />
                 </AuthRoute>
 
+                <Route path={"/search"}>
+                    <SearchPage />
+                </Route>
+
                 <ProtectedRoute exact path={"/:userName"}>
                     <Profile />
                 </ProtectedRoute>
+
 
                 <Route path={"/:username/status/:postId"}>
                     <DisplayPost />
                 </Route>
 
-                <Route path={"/search"}>
-                    <div>search</div>
-                </Route>
                 
                 <Route>
                     <div className="notFound">

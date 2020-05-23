@@ -30,7 +30,7 @@ const FeedPage = () => {
 
     useEffect(() => {
         getAllPost();
-    })
+    }, [])
 
     const makePostSubmit = async (postBody, tags) => {
         let res = await axios.post(API + "/api/posts", {

@@ -12,8 +12,10 @@ const NavBar = () => {
     const [ currentUsername, setCurrentUsername ] = useState("");
 
     const getUsername = async () => {
-        let res = await axios.get(API + "/api/users/" + currentUser.id);
-        setCurrentUsername(res.data.user.username);
+        if(currentUser) {
+            let res = await axios.get(API + "/api/users/" + currentUser.id);
+            setCurrentUsername(res.data.user.username);
+        }
     }
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const NavBar = () => {
             return (
                 <>
                     <NavLink exact to={`/${currentUsername}`}>Profile</NavLink>
-                    <Link onClick={logOut}>Log Out</Link>
+                    <Link to={"/"} onClick={logOut}>Log Out</Link>
                 </>
             )
         } else {
