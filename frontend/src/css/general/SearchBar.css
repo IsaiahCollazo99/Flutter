@@ -1,17 +1,20 @@
 .searchBarContainer {
-    width: 100%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-left: 1px solid lightgrey;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    position: fixed;
     overflow: scroll;
-    padding-top: 10px;
+    margin-top: 10px;
 }
 
 .searchBar {
     width: 70%;
-    font-size: 32px;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.searchBar:focus {
+    outline: none;
 }

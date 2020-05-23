@@ -1,3 +1,9 @@
 .discover {
     width: 30%;
+    top: 0;
+    height: 100vh;
+    border-left: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
