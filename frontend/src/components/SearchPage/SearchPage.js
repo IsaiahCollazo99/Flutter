@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
 import Post from '../General/Post';
+import UserCard from '../General/UserCard';
 
 const SearchPage = () => {
     const location = useLocation();
@@ -25,9 +26,14 @@ const SearchPage = () => {
             } else if(parsed.search[0] === "@") {
                 let slicedSearch = parsed.search.slice(1);
                 res = await axios.get(API + "/api/search/users?search=" + slicedSearch);
-                debugger;
+                setResults(res.data.users.map((user) => {
+                    return (
+                        <UserCard user={user} key={user.id}/>
+                    )
+                }))
             }
         } catch (error) {
+            setResults([]);
             console.log(error);
         }
 
