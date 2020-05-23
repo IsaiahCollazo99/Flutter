@@ -2,10 +2,10 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import '../../css/general/Discover.css';
 
-const Discover = () => {
+const Discover = ({ handleSearch }) => {
     return (
         <div className="discover">
-            <SearchBar />
+            <SearchBar handleSearch={handleSearch}/>
         </div>
     )
 }

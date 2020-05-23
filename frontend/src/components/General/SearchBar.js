@@ -1,11 +1,22 @@
 import React from 'react';
+import { useInput } from '../../util/customHooks';
 import '../../css/general/SearchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({ handleSearch }) => {
+    const search = useInput("");
+    
+    const searchSubmit = (e) => {
+        e.preventDefault();
+        if(search.value) {
+            handleSearch(search.value);
+        }
+
+    } 
+    
     return (
-        <div className="searchBarContainer">
-            <input type="search" className="searchBar" placeholder="Search"/>
-        </div>
+        <form className="searchBarContainer" onSubmit={searchSubmit}>
+            <input type="search" className="searchBar" placeholder="Search" {...search}/>
+        </form>
     )
 }
 
