@@ -2,3 +2,14 @@ body {
     background-color: #1A0A18;
     color: white;
 }
+
+.App {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.appCenter {
+    width: 50%;
+    margin-top: 45px;
+}

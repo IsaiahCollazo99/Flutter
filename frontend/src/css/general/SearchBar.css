@@ -1,0 +1,17 @@
+.searchBarContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: 1px solid lightgrey;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: scroll;
+    padding-top: 10px;
+}
+
+.searchBar {
+    width: 70%;
+    font-size: 32px;
+}

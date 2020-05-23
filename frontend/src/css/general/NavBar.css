@@ -1,9 +1,18 @@
 nav {
-    width: 100%;
+    width: 20%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 32px;
+    height: 100vh;
+    border-right: 1px solid lightgrey;
+    position: sticky;
+    top: 0;
+    height: 100vh;
 }
 
 a {
     color: white;
+    text-decoration: none;
 }

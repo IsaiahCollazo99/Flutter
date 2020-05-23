@@ -6,6 +6,7 @@
     border: 1px solid white;
     margin: 25px;
     padding: 25px;
+    width: 75%;
 }
 
 .postContainer:hover {

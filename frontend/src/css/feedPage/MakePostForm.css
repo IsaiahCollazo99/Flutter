@@ -1,0 +1,39 @@
+.makePostForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-bottom: 10px solid lightgrey;
+    padding: 0 65px;
+    padding-bottom: 10px;
+}
+
+.postFormBody {
+    resize: none;
+    font-size: 24px;
+    border-radius: 25px;
+    padding: 10px;
+    border: 3px solid blue;
+}
+
+.postFormBody:focus {
+    outline: none;
+}
+
+.formBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.wordCount {
+    font-size: 32px;
+    margin-left: 5px;
+}
+
+.postFormSubmit {
+    font-size: 18px;
+    padding: 5px 15px;
+    border-radius: 10px;
+
+}

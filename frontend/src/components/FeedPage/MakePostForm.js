@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../providers/AuthContext';
+import '../../css/feedPage/MakePostForm.css';
 
 const MakePostForm = ({ makePostSubmit }) => {
     const { currentUser } = useContext(AuthContext);
@@ -62,8 +63,7 @@ const MakePostForm = ({ makePostSubmit }) => {
         value: postBody,
         onChange: onTextAreaType,
         placeholder: "Hows life?",
-        resize: "none",
-        cols: 70,
+        cols: 50,
         rows: 5,
         form: "makePost"
     }
@@ -72,9 +72,11 @@ const MakePostForm = ({ makePostSubmit }) => {
         if(currentUser) {
             return (
                 <form onSubmit={onSubmit} className="makePostForm" id="makePost">
-                    <textarea {...postTextArea} />
-                    <p style={ wordCountStyle }>{wordCount}</p>
-                    <input type="submit" value="Post" />
+                    <textarea {...postTextArea} className="postFormBody" />
+                    <div className="formBottom">
+                        <p style={ wordCountStyle } className="wordCount">{wordCount}</p>
+                        <input type="submit" value="Post" className="postFormSubmit"/>
+                    </div>
                 </form>
             )
         } else {

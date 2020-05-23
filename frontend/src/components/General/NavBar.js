@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/general/NavBar.css';
 import { logOut } from '../../util/firebaseFunctions';
@@ -25,7 +25,7 @@ const NavBar = () => {
             return (
                 <>
                     <NavLink exact to={`/${currentUsername}`}>Profile</NavLink>
-                    <button onClick={logOut}>Log Out</button>
+                    <Link onClick={logOut}>Log Out</Link>
                 </>
             )
         } else {

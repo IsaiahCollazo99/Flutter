@@ -4,6 +4,7 @@ import { apiURL } from '../../util/apiURL';
 import Post from '../General/Post';
 import MakePostForm from './MakePostForm';
 import { AuthContext } from '../../providers/AuthContext';
+import '../../css/feedPage/FeedPage.css';
 
 const FeedPage = () => {
     const { currentUser } = useContext(AuthContext);
@@ -43,7 +44,7 @@ const FeedPage = () => {
     }
 
     return (
-        <div className="feedPageContainer">
+        <div className="feedPageContainer appCenter">
             <MakePostForm makePostSubmit={makePostSubmit}/>
             {posts}
         </div>
