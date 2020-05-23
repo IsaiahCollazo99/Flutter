@@ -49,11 +49,11 @@ const MakePostForm = ({ makePostSubmit }) => {
         if(lastChar === "#") {
             setTagFound(true);
         }
-        
+
         if(post.length < postBody.length) {
-            setWordCount(wordCount + 1);
+            setWordCount(wordCount + (postBody.length - post.length));
         } else if (post.length > postBody.length) {
-            setWordCount(wordCount - 1);
+            setWordCount(wordCount - (post.length - postBody.length));
         }
         setPostBody(post);
     }
