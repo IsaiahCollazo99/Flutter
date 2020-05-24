@@ -35,7 +35,8 @@ module.exports = {
                     GROUP BY posts.id
                     ORDER BY created_at DESC
                 ) AS full_posts
-                JOIN users on users.id = full_posts.poster_id;`
+                JOIN users on users.id = full_posts.poster_id
+                ORDER BY created_at DESC;`
             )
 
             if(posts.length) {
@@ -86,13 +87,15 @@ module.exports = {
                 poster_id,
                 body,
                 tags,
-                created_at
+                created_at,
+                is_retweet,
+                retweeter_id
             } = req.body;
 
             const post = await db.one(
-                `INSERT INTO posts (poster_id, body, created_at)
-                VALUES ($1, $2, $3)
-                RETURNING *`, [poster_id, body, created_at]
+                `INSERT INTO posts (poster_id, body, created_at, is_retweet, retweeter_id)
+                VALUES ($1, $2, $3, $4, $5)
+                RETURNING *`, [poster_id, body, created_at, is_retweet, retweeter_id]
             )
 
             if(tags) {
