@@ -31,6 +31,9 @@ const SearchPage = () => {
                         <UserCard user={user} key={user.id}/>
                     )
                 }))
+            } else {
+                res = await axios.get(API + "/api/search/all" + location.search);
+                debugger;
             }
         } catch (error) {
             setResults([]);
