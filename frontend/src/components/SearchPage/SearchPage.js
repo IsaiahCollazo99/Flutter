@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
@@ -9,7 +9,6 @@ import { useInput } from '../../util/customHooks';
 import '../../css/searchPage/SearchPage.css';
 
 const SearchPage = ({ handleSearch }) => {
-    const history = useHistory();
     let location = useLocation();
     let parsed = queryString.parse(location.search);;
     const API = apiURL();

@@ -18,7 +18,7 @@ const Post = ({ post, onDelete }) => {
     }
 
     const deletePost = async () => {
-        let res = await axios.delete(API + "/api/posts/" + post.id);
+        await axios.delete(API + "/api/posts/" + post.id);
         onDelete();
     }
 
