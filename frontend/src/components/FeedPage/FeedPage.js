@@ -20,7 +20,7 @@ const FeedPage = () => {
             let dbPosts = res.data.posts;
             setPosts(dbPosts.map((post) => {
                 return (
-                    <Post post={post} key={post.id}/>
+                    <Post post={post} onDelete={getAllPost} key={post.id}/>
                 )
             }))
         } catch(error) {

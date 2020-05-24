@@ -22,31 +22,56 @@ const MakePostForm = ({ makePostSubmit }) => {
         }
     }, [wordCount])
 
+    useEffect(() => {
+        setTagFound(false);
+        setCurrTag(""); 
+    }, [tags])
+
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // Only allow a post to be sent if it's between 0 and 280 characters
         if(wordCount >= 0 && wordCount < 280) {
-            makePostSubmit(postBody, tags);
-            setWordCount(280);
+            let allTags = [...tags];
+
+            if(tagFound) {
+                allTags.push(currTag);
+            }
+            makePostSubmit(postBody, allTags); // Sending back to parent to send POST req
+
+            // Resetting states
+            setWordCount(280); 
             setPostBody("");
+            setTags([]);
         }
     }
 
     const onTextAreaType = (e) => {
+        // Assigning helper variables
         let post = e.target.value
         let lastChar = post[post.length - 1]
 
+        // If currently typing a tag
         if(tagFound) {
+            // If the last character is a space then the tag is done
             if(lastChar === " ") {
-                setTagFound(false);
-                setTags([...tags, currTag]);
-                setCurrTag("");
+                setTags([...tags, currTag]); // Add the tag to the tags arr
             } else {
-                setCurrTag(currTag + lastChar);
+                // Check if the last character was deleted
+                if(post.length < postBody.length) {
+                    // Remove the last character of the currTag
+                    setCurrTag(currTag.slice(0, currTag[currTag.length -1]))
+                } else {
+                    // Add the last character to the current Tag
+                    setCurrTag(currTag + lastChar);
+                }
+
             }
         }
         
+        // Check if the last character was a #
         if(lastChar === "#") {
+            // Set tagFound to true, and start creating the current tag
             setTagFound(true);
         }
 
