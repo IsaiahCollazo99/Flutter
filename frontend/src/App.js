@@ -32,7 +32,7 @@ function App() {
                 </AuthRoute>
 
                 <Route path={"/search"}>
-                    <SearchPage />
+                    <SearchPage handleSearch={handleSearch} />
                 </Route>
 
                 <ProtectedRoute exact path={"/:userName"}>

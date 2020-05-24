@@ -1,0 +1,28 @@
+.searchPageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.searchBarSearchForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 32px;
+}
+
+.searchPageSearchBar {
+    width: 80%;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.searchPageResults {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
