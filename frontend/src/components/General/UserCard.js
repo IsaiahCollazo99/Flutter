@@ -3,8 +3,8 @@ import React from 'react';
 const UserCard = ({ user }) => {
     return (
         <div className="userCardContainer">
-            {user.full_name}
-            {user.username}
+            <p>{user.full_name}</p>
+            <p>{user.username}</p>
         </div>
     )
 }

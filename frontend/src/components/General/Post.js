@@ -6,20 +6,20 @@ import { AuthContext } from '../../providers/AuthContext';
 import { apiURL } from '../../util/apiURL';
 
 
-const Post = ({ post }) => {
+const Post = ({ post, onDelete }) => {
     const { currentUser } = useContext(AuthContext);
     const history = useHistory();
     const API = apiURL();
 
     const displayPost = (e) => {
-        debugger;
-        if(e.target.nodeName !== "BUTTON" && e.target.className !== "postFullName") {
+        if(e.target.className !== "deletePost" && e.target.className !== "postFullName") {
             history.push(`/${post.username}/status/${post.id}`);
         }
     }
 
     const deletePost = async () => {
         let res = await axios.delete(API + "/api/posts/" + post.id);
+        onDelete();
     }
 
     const displayDelete = () => {
