@@ -20,7 +20,7 @@ const SearchPage = () => {
                 res = await axios.get(API + "/api/search/tags?search=" + slicedSearch);
                 setResults(res.data.posts.map((post) => {
                     return (
-                        <Post post={post} key={post.id}/>
+                        <Post post={post} key={post.id} onDelete={getResults} />
                     )
                 }))
             } else if(parsed.search[0] === "@") {
@@ -33,7 +33,27 @@ const SearchPage = () => {
                 }))
             } else {
                 res = await axios.get(API + "/api/search/all" + location.search);
-                debugger;
+                const { posts, users } = res.data;
+                let postComponents = [null];
+                let usersComponents = [null];
+
+                if(posts.length) {
+                    postComponents = posts.map((post) => {
+                        return (
+                            <Post post={post} key={post.id} onDelete={getResults} />
+                        )
+                    })
+                }
+
+                if(users.length) {
+                    usersComponents = users.map(user => {
+                        return (
+                            <UserCard user={user} key={user.id} />
+                        )
+                    })
+                }
+
+                setResults([...postComponents, ...usersComponents]);
             }
         } catch (error) {
             setResults([]);
