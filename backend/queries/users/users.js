@@ -42,6 +42,27 @@ module.exports = {
         }
     },
 
+    getUserByUsername: async (req, res, next) => {
+        try{
+            const { username } = req.params;
+            let user = await db.any(
+                `SELECT * FROM users
+                WHERE username=$1`, username
+            )
+
+            if(user) {
+                throw { status: 409, error: "User with that username exists" }
+            } else {
+                res.status(200).json({
+                    status: "OK",
+                    message: "No user exists with that username"
+                })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
     getUserById: async (req, res, next) => {
         try {
             const { id } = req.params;
