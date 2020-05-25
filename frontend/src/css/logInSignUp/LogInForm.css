@@ -1,24 +1,24 @@
-.signUpForm {
+.logInForm {
     display: flex;
     flex-direction: column;
     width: 50%;
 }
 
-.signUpHeading {
+.logInHeading {
     font-size: 32px;
     margin-bottom: 35px;
 }
 
-.signUpForm div.error {
+.logInForm div.error {
     margin-bottom: 15px;
     font-size: 18px;
 }
 
-.signUpForm input{
+.logInForm input{
     align-self: center;
 }
 
-.signUpForm input:not([type="submit"]) {
+.logInForm input:not([type="submit"]) {
     margin-bottom: 10px;
     padding: 10px 15px;
     font-size: 18px;
@@ -29,17 +29,17 @@
     color: white;
 }
 
-.signUpForm input:not([type="submit"]):focus {
+.logInForm input:not([type="submit"]):focus {
     outline: none;
     border-bottom: 3px solid #ff2969;
     border-left: 3px solid #ff2969;
 }
 
-.signUpForm input.error {
+.logInForm input.error {
     border: 3px solid red;
 }
 
-.signUpForm input[type="submit"] {
+.logInForm input[type="submit"] {
     padding: 15px 25px;
     font-size: 20px;
     width: 100%;
@@ -47,8 +47,4 @@
     margin-top: 10px;
     background-color: #fc5185;
     font-family: 'Lato';
-}
-
-input[type="submit"]:hover {
-    cursor: pointer;
 }

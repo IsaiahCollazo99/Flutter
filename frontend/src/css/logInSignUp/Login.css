@@ -5,3 +5,17 @@
     align-self: center;
     width: 50%;
 }
+
+.logInSwitch {
+    font-family: 'Fira Sans';
+    position: relative;
+    left: -110px;
+    margin-top: 25px;
+    margin-left: 50px;
+    transition: 0.2s ease-in-out;
+    border-bottom: 1px solid #243547;
+}
+
+.logInSwitch:hover {
+    border-bottom: 1px solid white;
+}

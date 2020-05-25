@@ -19,8 +19,8 @@ const LogIn = () => {
             </AuthRoute>
 
             {location.pathname === "/login" ? 
-                <Link to={"/login/createAccount"}>Sign Up</Link> :
-                <Link to={"/login"}>Log In</Link>
+                <Link className="logInSwitch" to={"/login/createAccount"}>Don't have an account? Sign Up</Link> :
+                <Link className="logInSwitch" to={"/login"}>Already have an account? Log In</Link>
             }
         </div>
     )

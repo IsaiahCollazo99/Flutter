@@ -24,3 +24,9 @@ h1 {
     color: red;
     font-family: 'Fira Sans';
 }
+
+form label {
+    font-size: 18px;
+    font-family: 'Lato';
+    margin-bottom: 5px;
+}
