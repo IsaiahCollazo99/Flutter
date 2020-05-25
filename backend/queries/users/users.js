@@ -50,7 +50,7 @@ module.exports = {
                 WHERE username=$1`, username
             )
 
-            if(user) {
+            if(user.length) {
                 throw { status: 409, error: "User with that username exists" }
             } else {
                 res.status(200).json({
