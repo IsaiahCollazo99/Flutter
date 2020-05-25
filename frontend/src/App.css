@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&family=Lato:wght@700&display=swap');
 
 body {
-    background-color: #1A0A18;
+    background-color: #243547;
     color: white;
 }
 
@@ -14,4 +14,13 @@ body {
 .appCenter {
     width: 50%;
     margin-top: 45px;
+}
+
+h1 {
+    font-family: 'Lato';
+}
+
+.error {
+    color: red;
+    font-family: 'Fira Sans';
 }

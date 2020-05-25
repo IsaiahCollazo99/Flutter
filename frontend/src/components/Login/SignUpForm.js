@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { apiURL } from '../../util/apiURL';
 import { signUp } from '../../util/firebaseFunctions'
 import { useInput } from '../../util/customHooks';
+import '../../css/logInSignUp/SignUpForm.css';
 
 const SignUpForm = () => {
     const email = useInput("");
@@ -15,10 +16,13 @@ const SignUpForm = () => {
     const history = useHistory();
     const API = apiURL();
 
+    const [emailClass, setEmailClass] = useState(null);
+    const [usernameClass, setUsernameClass] = useState(null);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let user = await axios.get(API + "/api/users/username/" + username.value);
+            await axios.get(API + "/api/users/username/" + username.value);
             let res = await signUp(email.value, password.value);
             await axios.post(API + "/api/users", {
                 id: res.user.uid, 
@@ -28,24 +32,40 @@ const SignUpForm = () => {
             })
             setError(null);
             history.push("/")
-            
+
         } catch (error) {
-            if(error.response.data.error) {
+            if(error.response) {
                 setError("User with that username already exists")
+                setEmailClass(null);
+                setUsernameClass("error");
+
             } else {
                 setError(error.message);
+                setEmailClass("error");
+                setUsernameClass(null);
             }
         } 
     }
     
     return (
         <>
-            {error ? <div className="error">{error}</div> : null}
             <form className="signUpForm" onSubmit={handleSubmit}>
-                <input type="email" placeholder="Email" {...email} autoComplete="on"/>
-                <input type="password" placeholder="Password" {...password} autoComplete="on" />
-                <input type="text" placeholder="Name" {...name} autoComplete="on"/>
-                <input type="text" placeholder="Username" {...username} autoComplete="on"/>
+
+                <h1 className="signUpHeading">Create your account</h1>
+
+                {error ? <div className="error">{error}</div> : null}
+                
+                <label for="email" className="formLabel">Email: </label>
+                <input type="email" {...email} name="email" autoComplete="on" className={emailClass} required/>
+
+                <label for="password" className="formLabel">Password: </label>
+                <input type="password" {...password} name="password" autoComplete="on"  required/>
+
+                <label for="name" className="formLabel">Name: </label>
+                <input type="text" {...name} name="name" autoComplete="on" required/>
+
+                <label for="username" className="formLabel">Username: </label>
+                <input type="text" {...username} name="username" className={usernameClass} autoComplete="on" required/>
 
                 <input type="submit" value="Sign Up"/>
             </form>
