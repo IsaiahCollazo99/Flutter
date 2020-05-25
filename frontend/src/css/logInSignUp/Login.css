@@ -19,3 +19,8 @@
 .logInSwitch:hover {
     border-bottom: 1px solid white;
 }
+
+.logInContainer label {
+    position: relative;
+    left: -18px;
+}

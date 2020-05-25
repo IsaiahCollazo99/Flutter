@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { logIn } from '../../util/firebaseFunctions';
 import '../../css/logInSignUp/LogInForm.css';
 
@@ -27,14 +27,18 @@ const LogInForm = () => {
 
                 {error ? <div className="error">{error}</div> : null}
 
-                <input type="email" placeholder="Email"
+                <label for="email">Email: </label>
+                <input type="email"
                     value={email}
                     onChange={(e) => setEmail(e.currentTarget.value)}
+                    name="email"
                 />
     
-                <input type="password" placeholder="Password"
+                <label for="password">Password: </label>
+                <input type="password"
                     value={password}
                     onChange={(e) => setPassword(e.currentTarget.value)}
+                    name="password"
                     autoComplete="on"
                 />
     

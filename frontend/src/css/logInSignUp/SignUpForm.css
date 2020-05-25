@@ -19,7 +19,7 @@
 }
 
 .signUpForm input:not([type="submit"]) {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 10px 15px;
     font-size: 18px;
     width: 100%;
@@ -51,4 +51,5 @@
 
 input[type="submit"]:hover {
     cursor: pointer;
+    background-color: #df4976;
 }
