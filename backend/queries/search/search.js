@@ -16,7 +16,7 @@ module.exports = {
                 ) AS full_posts
                 JOIN users on users.id = full_posts.poster_id
                 WHERE $1 = ANY(full_posts.tags)
-                ORDER BY created_at DESC;
+                ORDER BY full_posts.id DESC;
             `, search);
 
             if(posts.length) {
@@ -77,7 +77,7 @@ module.exports = {
                 ) AS full_posts
                 JOIN users ON users.id = full_posts.poster_id
                 WHERE full_posts.body LIKE $2 OR $1 = ANY(full_posts.tags)
-                ORDER BY created_at DESC;
+                ORDER BY full_posts.id DESC;
             `, [search.toLowerCase(),  '%' + search + '%']);
 
             if(posts.length || users.length) {
