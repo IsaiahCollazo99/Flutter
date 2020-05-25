@@ -18,6 +18,7 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            let user = await axios.get(API + "/api/users/username/" + username.value);
             let res = await signUp(email.value, password.value);
             await axios.post(API + "/api/users", {
                 id: res.user.uid, 
@@ -25,17 +26,21 @@ const SignUpForm = () => {
                 full_name: name.value, 
                 username: username.value
             })
-            debugger;
+            setError(null);
             history.push("/")
+            
         } catch (error) {
-            setError(error.message);
-        }
-        
+            if(error.response.data.error) {
+                setError("User with that username already exists")
+            } else {
+                setError(error.message);
+            }
+        } 
     }
     
     return (
         <>
-            {error ? <div>{error}</div> : null}
+            {error ? <div className="error">{error}</div> : null}
             <form className="signUpForm" onSubmit={handleSubmit}>
                 <input type="email" placeholder="Email" {...email} autoComplete="on"/>
                 <input type="password" placeholder="Password" {...password} autoComplete="on" />

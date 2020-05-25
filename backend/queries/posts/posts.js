@@ -36,7 +36,7 @@ module.exports = {
                     ORDER BY created_at DESC
                 ) AS full_posts
                 JOIN users on users.id = full_posts.poster_id
-                ORDER BY created_at DESC;`
+                ORDER BY full_posts.id DESC;`
             )
 
             if(posts.length) {
