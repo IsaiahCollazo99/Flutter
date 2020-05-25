@@ -78,7 +78,7 @@ module.exports = {
                 JOIN users ON users.id = full_posts.poster_id
                 WHERE full_posts.body LIKE $2 OR $1 = ANY(full_posts.tags)
                 ORDER BY created_at DESC;
-            `, [search,  '%' + search + '%']);
+            `, [search.toLowerCase(),  '%' + search + '%']);
 
             if(posts.length || users.length) {
                 res.status(200).json({

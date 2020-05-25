@@ -103,11 +103,10 @@ module.exports = {
                     return await db.one(
                         `INSERT INTO tags (post_id, name)
                         VALUES ($1, $2)
-                        RETURNING *`, [post.id, tag]
+                        RETURNING *`, [post.id, tag.toLowerCase()]
                     )
                 })
             }
-
 
             res.status(200).json({
                 status: "OK",
