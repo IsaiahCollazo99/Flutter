@@ -45,6 +45,7 @@ const FeedPage = () => {
 
     return (
         <div className="feedPageContainer appCenter">
+            <header>Home</header>
             <MakePostForm makePostSubmit={makePostSubmit}/>
             {posts}
         </div>

@@ -8,12 +8,12 @@ body {
 .App {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
+
 }
 
 .appCenter {
     width: 50%;
-    margin-top: 45px;
 }
 
 h1 {

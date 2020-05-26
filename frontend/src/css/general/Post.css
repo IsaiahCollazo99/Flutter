@@ -3,21 +3,21 @@
 }
 
 .postContainer {
-    border: 1px solid white;
     margin: 25px;
     padding: 25px;
-    width: 75%;
+    width: 90%;
     display: flex;
     flex-direction: column;
+    background-color: #213041;
 }
 
 .postContainer:hover {
-    background-color: #1E131C;
+    background-color: #1d2b3a;
     cursor: pointer;
 }
 
 .postInfo {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;

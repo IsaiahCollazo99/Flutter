@@ -9,11 +9,18 @@
 
 .searchBar {
     width: 70%;
-    font-size: 18px;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    background-color: #213041;
+    border: 3px solid #b93a60;
+    transition: 0.3s ease;
+    color: white;
 }
 
 .searchBar:focus {
     outline: none;
+    border-bottom: 3px solid #ff2969;
+    border-left: 3px solid #ff2969;
 }
