@@ -14,7 +14,18 @@ nav {
     background-color: #293e55;
 }
 
-a {
-    color: white;
-    text-decoration: none;
+nav a:not(.active) {
+    border-bottom: 1px solid #293e55;
+    padding: 10px 0;
+    transition: 0.3s ease;
+}
+
+nav a:not(.active):hover {
+    border-bottom: 4px solid #ffffff;
+    padding-bottom: 7px;
+    color: #007bff;
+}
+
+nav a.active {
+    color: #ff175d;
 }

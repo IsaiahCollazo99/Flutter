@@ -21,6 +21,11 @@ h1 {
     font-family: 'Lato';
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 .error {
     color: red;
     font-family: 'Fira Sans';
