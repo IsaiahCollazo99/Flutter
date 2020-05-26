@@ -2,14 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    /* position: static; */
 }
 
 .feedPageContainer header {
     width: 100%;
-    margin-left: 20px;
     font-family: 'Lato';
     font-size: 24px;
     padding: 25px;
+    padding-left: 75px;
 }

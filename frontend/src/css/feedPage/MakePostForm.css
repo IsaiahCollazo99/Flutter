@@ -4,28 +4,32 @@
     justify-content: space-evenly;
     border-top: 1px solid white;
     border-bottom: 10px solid lightgrey;
-    padding: 0 65px;
-    padding-bottom: 10px;
+    padding: 20px 65px;
+    background-color: #213041;
 }
 
 .postFormBody {
     resize: none;
     font-size: 24px;
     border-radius: 25px;
-    padding: 10px;
-    border: 3px solid blue;
+    padding: 15px;
+    border: 3px solid #b93a60;
     font-family: 'Fira Sans', sans-serif;
+    background-color: #1d2b3a;
+    transition: 0.3s ease;
+    color: white;
 }
 
 .postFormBody:focus {
     outline: none;
+    border: 3px solid #ff175d;
 }
 
 .formBottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 10px;
     font-family: 'Lato', sans-serif;
 }
 
@@ -39,5 +43,6 @@
     font-size: 18px;
     padding: 5px 15px;
     border-radius: 10px;
-
+    background-color: #fc5185;
+    font-family: 'Lato';
 }

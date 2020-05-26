@@ -32,8 +32,7 @@
 
 .logInForm input:not([type="submit"]):focus {
     outline: none;
-    border-bottom: 3px solid #ff2969;
-    border-left: 3px solid #ff2969;
+    border: 3px solid #ff175d;
 }
 
 .logInForm input.error {
