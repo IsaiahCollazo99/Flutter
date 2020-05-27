@@ -90,7 +90,7 @@ module.exports = {
             )
 
             let userPosts = await db.any(
-                `SELECT users.username, users.full_name, full_posts.*
+                `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
                     SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                     FROM posts
