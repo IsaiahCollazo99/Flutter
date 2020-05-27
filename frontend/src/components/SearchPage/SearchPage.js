@@ -55,6 +55,9 @@ const SearchPage = ({ handleSearch }) => {
                             <UserCard user={user} key={user.id} />
                         )
                     })
+                    usersComponents.unshift(
+                        <h2 key={"h2"}>People</h2>
+                    )
                 }
 
                 setResults([...postComponents, ...usersComponents]);

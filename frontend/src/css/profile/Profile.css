@@ -5,11 +5,12 @@
 }
 
 .profileContainer header {
-    width: 95%;
+    width: 100%;
     font-family: 'Lato';
     font-size: 24px;
     padding: 25px;
     border-bottom: 1px solid white;
+    box-sizing: border-box;
 }
 
 .profilePostContainer {
