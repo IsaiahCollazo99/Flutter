@@ -1,15 +1,12 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
-import { AuthContext } from '../../providers/AuthContext';
 import Post from '../General/Post';
-import MakePostForm from '../FeedPage/MakePostForm';
 import blankProfile from '../../assets/images/blankProfile.png';
 import '../../css/profile/Profile.css';
 
 const Profile = () => {
-    const { currentUser } = useContext(AuthContext);
     const { userName: username } = useParams();
     const [ error, setError ] = useState(null);
     const [ posts, setPosts ] = useState([]);
@@ -41,42 +38,11 @@ const Profile = () => {
         getUserPosts();
     }, [])
 
-    // const makePostSubmit = async (postBody, tags) => {
-    //     await axios.post(API + "/api/posts", {
-    //         poster_id: currentUser.id, 
-    //         body: postBody,
-    //         tags,
-    //         is_retweet: false, 
-    //         created_at: new Date().toString()
-    //     })
-       
-    //     getUserPosts();
-    // }
-
-    // const displayMakePostForm = () => {
-    //     if(posts[0]) {
-    //         if(currentUser.id === posts[0].props.post.poster_id) {
-    //             return (
-    //                 <MakePostForm makePostSubmit={makePostSubmit}/>
-    //             )
-    //         } else {
-    //             return (
-    //                 null
-    //             )
-    //         }
-    //     } else {
-    //         return (
-    //             null
-    //         )
-    //     }
-    // }
-
     const profilePic = user.profile_pic ? user.profile_pic : blankProfile;
     
     return (
         <div className="profileContainer appCenter">
             <header>{user ? user.full_name : "Profile"}</header>
-            {/* {displayMakePostForm()} */}
             <div className="profileUserInfo">
                 <img src={profilePic} alt={user.full_name} />
                 <div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
 import '../../css/general/DisplayPost.css';
 import { AuthContext } from '../../providers/AuthContext';
+import blankProfile from '../../assets/images/blankProfile.png';
 
 const DisplayPost = () => {
     const { postId } = useParams();
@@ -39,46 +40,46 @@ const DisplayPost = () => {
             }
         }
     }
+
+    const profilePic = post.profile_pic ? post.profile_pic : blankProfile;
     
     return (
         <div className="displayPost appCenter">
              <div className="displayPostContainer">
-                {/* <div className="displayPostLeft">
-                    Profile Picture
-                </div> */}
-
-                {/* <div className="displayPostRight">
-                    When Pfp is implemented
-                </div> */}
-
-                <div className="displayPostInfo">
-                    <div className="displayPostInfoLeft">
-                        <Link to={"/" + post.username} 
-                        className="displayPostName">
-                            {post.full_name}
-                        </Link>
-                        <p className="displayPostUsername">@{post.username}</p>
-                    </div>
-
-                    <div className="displayPostInfoRight">
-                        {displayDelete()}
-                    </div>
-
+                <div className="displayPostLeft">
+                    <img src={profilePic} alt={post.full_name} />
                 </div>
 
-                <div className="displayPostPost">
-                    <div className="displayPostBody">
-                        {post.body}
+                <div className="displayPostRight">
+                    <div className="displayPostInfo">
+                        <div className="displayPostInfoLeft">
+                            <Link to={"/" + post.username} 
+                            className="displayPostName">
+                                {post.full_name}
+                            </Link>
+                            <p className="displayPostUsername">@{post.username}</p>
+                        </div>
+
+                        <div className="displayPostInfoRight">
+                            {displayDelete()}
+                        </div>
+
                     </div>
-                    
-                    {/* <div className="displayPostActivity">
-                        Likes, Comments, Retweets & Bookmarks Here
+
+                    <div className="displayPostPost">
+                        <div className="displayPostBody">
+                            {post.body}
+                        </div>
+                        
+                        {/* <div className="displayPostActivity">
+                            Likes, Comments, Retweets & Bookmarks Here
+                        </div> */}
+                    </div>
+
+                    {/* <div className="displayPostComments">
+                        Comments here
                     </div> */}
                 </div>
-
-                {/* <div className="displayPostComments">
-                    Comments here
-                </div> */}
             </div>
         </div>
     )
