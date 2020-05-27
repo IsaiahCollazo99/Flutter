@@ -27,7 +27,7 @@ module.exports = {
     getAllPosts: async (req, res, next) => {
         try {
             const posts = await db.any(
-                `SELECT users.username, users.full_name, full_posts.*
+                `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
                     SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                     FROM posts
@@ -57,7 +57,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const post = await db.one(
-                `SELECT users.username, users.full_name, full_posts.*
+                `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
                     SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
                     FROM posts

@@ -57,3 +57,6 @@
 
 -- ALTER TABLE posts
 -- ADD retweeter_id VARCHAR REFERENCES users(id) ON DELETE CASCADE;
+
+ALTER TABLE users
+ADD profile_pic varchar;

@@ -128,13 +128,13 @@ module.exports = {
     createUser: async (req, res, next) => {
         try {
             const { 
-                id, email, full_name, username
+                id, email, full_name, username, profile_pic
             } = req.body;
 
             let user = await db.one(
-                `INSERT INTO users (id, email, full_name, username)
-                VALUES ($1, $2, $3, $4) RETURNING *`, [id, email, full_name, username]
-            )
+                `INSERT INTO users (id, email, full_name, username, profile_pic)
+                VALUES ($1, $2, $3, $4, $5) RETURNING *`, [id, email, full_name, username, profile_pic]
+            );
 
             res.status(200).json({
                 status: "OK",
