@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border-top: 1px solid white;
     border-bottom: 10px solid lightgrey;
     padding: 20px 65px;
     background-color: #213041;

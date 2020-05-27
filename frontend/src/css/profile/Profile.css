@@ -1,0 +1,26 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileContainer header {
+    width: 95%;
+    font-family: 'Lato';
+    font-size: 24px;
+    padding: 25px;
+    border-bottom: 1px solid white;
+}
+
+.profilePostContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.profilePostContainer .error {
+    font-size: 18px;
+    font-family: 'Fira Sans';
+    padding: 35px;
+}
