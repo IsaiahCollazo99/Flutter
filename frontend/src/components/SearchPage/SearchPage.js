@@ -79,12 +79,12 @@ const SearchPage = ({ handleSearch }) => {
 
     return (
         <div className="searchPageContainer appCenter">
-            <form className="searchBarSearchForm" onSubmit={handleSubmit}>
-                <input type="search" className="searchPageSearchBar" placeholder="Search" {...searchBar}/>
+            <form onSubmit={handleSubmit}>
+                <input type="search" placeholder="Search" {...searchBar}/>
             </form>
 
             <div className="searchPageResults">
-                {results}
+                {results.length ? results : <p className="error">No results found</p>}
             </div>
         </div>
     )

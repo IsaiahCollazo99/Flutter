@@ -5,19 +5,36 @@
     width: 50%;
 }
 
-.searchBarSearchForm {
+.searchPageContainer form {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
     font-size: 32px;
+    padding: 25px;
 }
 
-.searchPageSearchBar {
+.searchPageContainer input[type="search"] {
     width: 80%;
-    font-size: 18px;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    background-color: #213041;
+    border: 3px solid #b93a60;
+    transition: 0.3s ease;
+    color: white;
+}
+
+.searchPageContainer input[type="search"]:focus {
+    outline: none;
+    border: 3px solid #ff175d;
+}
+
+.searchPageContainer .error {
+    font-family: 'Lato';
+    font-size: 32px;
+    padding: 35px;
 }
 
 .searchPageResults {
