@@ -74,7 +74,7 @@ const Profile = () => {
             <header>{fullName ? fullName : "Profile"}</header>
             {displayMakePostForm()}
             <div className="profilePostContainer">
-                <div className="error">{error}</div>
+                {error ? <div className="error">{error}</div> : null}
                 {posts}
             </div>
         </div>
