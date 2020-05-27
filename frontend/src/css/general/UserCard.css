@@ -1,0 +1,25 @@
+.userCardContainer {
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px;
+    padding: 25px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    background-color: #213041;
+    transition: 0.3s ease;
+}
+
+.userCardContainer:hover {
+    background-color: #1d2b3a;
+    cursor: pointer;
+}
+
+.userCardName:hover {
+    text-decoration: underline;
+}
+
+.userCardUsername {
+    color: rgb(185, 185, 185);
+}
