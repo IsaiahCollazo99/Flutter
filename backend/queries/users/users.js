@@ -80,6 +80,51 @@ module.exports = {
         }
     },
 
+    getUsersPosts: async (req, res, next) => {
+        try {
+            const { username } = req.params;
+
+            let user = await db.one(
+                `SELECT * FROM users
+                 WHERE username=$1`, username
+            )
+
+            let userPosts = await db.any(
+                `SELECT users.username, users.full_name, full_posts.*
+                FROM (
+                    SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
+                    FROM posts
+                    LEFT JOIN tags on tags.post_id = posts.id
+                    GROUP BY posts.id
+                    ORDER BY created_at DESC
+                ) AS full_posts
+                JOIN users on users.id = full_posts.poster_id
+                WHERE users.username=$1
+                ORDER BY full_posts.id DESC;`, username
+            )
+
+            if(userPosts.length) {
+                res.status(200).json({
+                    status: "OK",
+                    userPosts,
+                    message: "Retrieved all posts by " + username
+                })
+            } else {
+                throw { status: 404, error: "User has no posts." }
+            }
+            
+        } catch(error) {
+            if(error.received === 0) {
+                res.status(404).json({
+                    status: 404,
+                    error: `User doesn't exist`
+                })
+            } else {
+                next(error);
+            }
+        }
+    },
+
     createUser: async (req, res, next) => {
         try {
             const { 
