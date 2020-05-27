@@ -1,4 +1,71 @@
+.displayPost {
+    display: flex;
+    margin: 25px;
+    padding: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    background-color: #213041;
+    transition: 0.3s ease;
+    height: fit-content
+}
+
+.displayPost:hover {
+    background-color: #1d2b3a;
+    cursor: pointer;
+}
+
 .displayPostContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.displayPostInfo {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Lato';
+    font-size: 24px;
+}
+
+.displayPostInfoLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.displayPostName:hover {
+    text-decoration: underline;
+}
+
+.displayPostUsername {
+    color: rgb(185, 185, 185);
+}
+
+.deleteDisplay {
+    font-size: 18px;
+    width: fit-content;
+    color: Red;
+    display: flex;
+    text-align: right;
+    transition: 0.3s ease;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.deleteDisplay:hover {
+    background-color: rgba(255, 0, 0, 0.308);
+}
+
+.displayPostPost {
+    display: flex;
+    flex-direction: column;
+}
+
+.displayPostBody {
+    word-wrap: break-word;
+    display: inline-block;
+    font-size: 22px;
+    font-family: 'Fira Sans', sans-serif;
 }
