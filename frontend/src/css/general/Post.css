@@ -7,7 +7,7 @@
     padding: 25px;
     width: 90%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: #213041;
     transition: 0.3s ease;
 }
@@ -15,6 +15,25 @@
 .postContainer:hover {
     background-color: #1d2b3a;
     cursor: pointer;
+}
+
+.postLeft {
+    min-width: 11%;
+    max-width: 11%;
+    margin-right: 15px;
+
+}
+
+.postLeft img {
+    width: 100%;
+    border-radius: 100px;
+}
+
+.postRight {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
 }
 
 .postInfo {
@@ -68,8 +87,9 @@
 }
 
 .postBody {
+    overflow-wrap: break-word;
     word-wrap: break-word;
-    display: inline-block;
+    word-break: break-all;
     font-size: 18px;
     font-family: 'Fira Sans', sans-serif;
 }

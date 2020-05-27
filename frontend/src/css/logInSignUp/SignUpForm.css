@@ -18,7 +18,7 @@
     align-self: center;
 }
 
-.signUpForm input:not([type="submit"]) {
+.signUpForm input:not([type="submit"]):not([type="file"]) {
     margin-bottom: 20px;
     padding: 10px 15px;
     font-size: 18px;

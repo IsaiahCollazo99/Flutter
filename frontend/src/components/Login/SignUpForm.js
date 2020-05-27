@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import firebase from 'firebase';
 import { apiURL } from '../../util/apiURL';
 import { signUp } from '../../util/firebaseFunctions'
 import { useInput } from '../../util/customHooks';
@@ -11,6 +12,7 @@ const SignUpForm = () => {
     const password = useInput("");
     const name = useInput("");
     const username = useInput("");
+    const [profilePicture, setProfilePicture] = useState(null);
 
     const [error, setError] = useState(null);
     const history = useHistory();
@@ -19,19 +21,44 @@ const SignUpForm = () => {
     const [emailClass, setEmailClass] = useState(null);
     const [usernameClass, setUsernameClass] = useState(null);
 
+    const handleSignUp = async (url = null) => {
+        await axios.get(API + "/api/users/username/" + username.value);
+        let res = await signUp(email.value, password.value);
+        await axios.post(API + "/api/users", {
+            id: res.user.uid, 
+            email: email.value, 
+            full_name: name.value, 
+            username: username.value,
+            profile_pic: url
+        })
+        setError(null);
+        history.push("/")
+    }
+
+    const profilePictureUpload = async () => {
+        let storageRef = firebase.storage().ref('profile_pictures/' + profilePicture.name)
+        let upload = storageRef.put(profilePicture);
+        let url;
+
+        upload.on('state_changed', snapshot => {
+
+        }, error => {
+            console.log(error);
+            throw error;
+        },async  () => {
+            url = await upload.snapshot.ref.getDownloadURL();
+            await handleSignUp(url);
+        })
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.get(API + "/api/users/username/" + username.value);
-            let res = await signUp(email.value, password.value);
-            await axios.post(API + "/api/users", {
-                id: res.user.uid, 
-                email: email.value, 
-                full_name: name.value, 
-                username: username.value
-            })
-            setError(null);
-            history.push("/")
+            if(profilePicture) {
+                await profilePictureUpload();
+            } else {
+                await handleSignUp();
+            }     
 
         } catch (error) {
             if(error.response) {
@@ -46,6 +73,10 @@ const SignUpForm = () => {
             }
         } 
     }
+
+    const handlePicUpload = (e) => {
+        setProfilePicture(e.target.files[0]);
+    } 
     
     return (
         <>
@@ -66,6 +97,9 @@ const SignUpForm = () => {
 
                 <label for="username" className="formLabel">Username: </label>
                 <input type="text" {...username} name="username" className={usernameClass} autoComplete="on" required/>
+
+                <label for="profilePic" className="formLabel">Profile Picture: (Optional)</label>
+                <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handlePicUpload}/>
 
                 <input type="submit" value="Sign Up"/>
             </form>

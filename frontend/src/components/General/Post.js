@@ -4,7 +4,7 @@ import '../../css/general/Post.css';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthContext';
 import { apiURL } from '../../util/apiURL';
-
+import blankProfile from '../../assets/images/blankProfile.png';
 
 const Post = ({ post, onDelete }) => {
     const { currentUser } = useContext(AuthContext);
@@ -35,17 +35,16 @@ const Post = ({ post, onDelete }) => {
             }
         }
     }
+
+    const profilePic = post.profile_pic ? post.profile_pic : blankProfile;
     
     return (
         <div className="postContainer" onClick={displayPost}>
-            {/* <div className="postLeft">
-                Profile Picture
-            </div> */}
+            <div className="postLeft">
+                <img src={profilePic} alt={post.name}/>
+            </div>
 
-            {/* <div className="postRight">
-                When Pfp is implemented
-            </div> */}
-
+            <div className="postRight">
             <div className="postInfo">
                 <div className="postInfoLeft">
                     <Link to={`/${post.username}`} className="postFullName">
@@ -68,6 +67,9 @@ const Post = ({ post, onDelete }) => {
                     Likes, Comments, Retweets & Bookmarks Here
                 </div> */}
             </div>
+            </div>
+
+            
         </div>
     )
 }
