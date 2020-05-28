@@ -35,9 +35,9 @@ function App() {
                     <SearchPage handleSearch={handleSearch} />
                 </Route>
 
-                <ProtectedRoute exact path={"/:userName"}>
+                <Route exact path={"/:userName"}>
                     <Profile />
-                </ProtectedRoute>
+                </Route>
 
 
                 <Route path={"/:username/status/:postId"}>
