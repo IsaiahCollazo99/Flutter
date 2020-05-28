@@ -23,7 +23,10 @@
 }
 
 .profileUserInfo img {
-    width: 20%;
+    min-width: 125px;
+    max-width: 125px;
+    height: 125px;
+    object-fit: cover;
     border-radius: 100px;
     margin-right: 25px;
 }
