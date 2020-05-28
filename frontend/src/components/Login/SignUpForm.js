@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import { apiURL } from '../../util/apiURL';
 import { signUp } from '../../util/firebaseFunctions'
 import { useInput } from '../../util/customHooks';
+import { FaSpinner } from 'react-icons/fa';
 import '../../css/logInSignUp/SignUpForm.css';
 
 const SignUpForm = () => {
@@ -14,6 +15,7 @@ const SignUpForm = () => {
     const username = useInput("");
     const [profilePicture, setProfilePicture] = useState(null);
 
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
     const API = apiURL();
@@ -33,6 +35,7 @@ const SignUpForm = () => {
         })
         setError(null);
         history.push("/")
+        setLoading(false);
     }
 
     const profilePictureUpload = async () => {
@@ -53,6 +56,7 @@ const SignUpForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             if(profilePicture) {
                 await profilePictureUpload();
@@ -101,6 +105,7 @@ const SignUpForm = () => {
                 <label for="profilePic" className="formLabel">Profile Picture: (Optional)</label>
                 <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handlePicUpload}/>
 
+                { loading ? <FaSpinner size="100px"/> : null}
                 <input type="submit" value="Sign Up"/>
             </form>
         </>

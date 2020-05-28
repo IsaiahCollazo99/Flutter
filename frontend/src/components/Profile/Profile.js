@@ -11,19 +11,23 @@ const Profile = () => {
     const [ error, setError ] = useState(null);
     const [ posts, setPosts ] = useState([]);
     const [ user, setUser ] = useState({});
+    const [ loading, setLoading ] = useState(true);
 
     const API = apiURL();
 
     const getUserPosts = async () => {
         try {
             let res = await axios.get(API + "/api/users/" + username + "/posts");
-            setPosts(res.data.userPosts.map(post => {
-                return (
+            let user = await axios.get(API + "/api/users/" + res.data.userPosts[0].poster_id);
+            setUser(user.data.user);
+            setTimeout(() => {
+                setPosts(res.data.userPosts.map(post => {
+                    return (
                         <Post post={post} key={post.id} />
                     )
                 }));
-            let user = await axios.get(API + "/api/users/" + res.data.userPosts[0].poster_id);
-            setUser(user.data.user);
+                setLoading(false);
+            }, 1000);
             setError(null);
 
         } catch(error) {
@@ -51,6 +55,7 @@ const Profile = () => {
                 </div>
             </div>
             <section>Posts</section>
+            {loading ? <div className="loading">Loading</div> : null}
             <div className="profilePostContainer">
                 {error ? <div className="error">{error}</div> : null}
                 {posts}

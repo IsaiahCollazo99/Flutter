@@ -1,12 +1,10 @@
 .displayPost {
     display: flex;
-    margin: 25px;
-    padding: 50px;
     display: flex;
     flex-direction: column;
-    background-color: #213041;
     transition: 0.3s ease;
-    height: fit-content
+    height: fit-content;
+    background-color: #213041;
 }
 
 .displayPost:hover {
@@ -14,10 +12,22 @@
     cursor: pointer;
 }
 
+.displayPost header {
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 24px;
+    padding: 25px;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+}
+
 .displayPostContainer {
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-top: 25px;
+    padding: 25px;
+    box-sizing: border-box;
 }
 
 .displayPostLeft {

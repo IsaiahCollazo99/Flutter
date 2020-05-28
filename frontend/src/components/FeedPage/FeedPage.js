@@ -9,6 +9,7 @@ import '../../css/feedPage/FeedPage.css';
 const FeedPage = () => {
     const { currentUser } = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const API = apiURL();
     
     const getAllPost = async () => {
@@ -17,12 +18,18 @@ const FeedPage = () => {
                 method: "GET",
                 url: API + "/api/posts"
             });
+            
             let dbPosts = res.data.posts;
-            setPosts(dbPosts.map((post) => {
-                return (
-                    <Post post={post} onDelete={getAllPost} key={post.id}/>
-                )
-            }))
+
+            setTimeout(() => {
+                setPosts(dbPosts.map((post) => {
+                    return (
+                        <Post post={post} onDelete={getAllPost} key={post.id}/>
+                    )
+                }));
+                setLoading(false);
+            }, 1000)
+
         } catch(error) {
             console.log(error);
         }
@@ -47,6 +54,7 @@ const FeedPage = () => {
         <div className="feedPageContainer appCenter">
             <header>Home</header>
             <MakePostForm makePostSubmit={makePostSubmit}/>
+            {loading ? <div className="loading">Loading</div> : null}
             {posts}
         </div>
     )

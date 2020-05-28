@@ -9,13 +9,19 @@ import blankProfile from '../../assets/images/blankProfile.png';
 const DisplayPost = () => {
     const { postId } = useParams();
     const [post, setPost] = useState({});
+    const [loading, setLoading] = useState(true); // For comments
     const API = apiURL();
     const history = useHistory();
     const { currentUser } = useContext(AuthContext);
 
     const fetchPost = async () => {
         let res = await axios.get(API + "/api/posts/" + postId);
-        setPost(res.data.post);
+
+        setTimeout(() => {
+            setPost(res.data.post);
+            setLoading(false);
+        }, 500);
+
     }
 
     useEffect(() => {
@@ -45,6 +51,7 @@ const DisplayPost = () => {
     
     return (
         <div className="displayPost appCenter">
+            <header>Post</header>
              <div className="displayPostContainer">
                 <div className="displayPostLeft">
                     <img src={profilePic} alt={post.full_name} />

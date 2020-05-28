@@ -13,6 +13,7 @@ const SearchPage = ({ handleSearch }) => {
     let parsed = queryString.parse(location.search);;
     const API = apiURL();
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(true);
     const searchBar = useInput("")
 
     const getResults = async (searchValue) => {
@@ -59,17 +60,25 @@ const SearchPage = ({ handleSearch }) => {
                         <h2 key={"h2"}>People</h2>
                     )
                 }
-
-                setResults([...postComponents, ...usersComponents]);
+                
+                setTimeout(() => {
+                    setResults([...postComponents, ...usersComponents]);
+                    setLoading(false);
+                }, 1000);
             }
         } catch (error) {
-            setResults([]);
+            setTimeout(() => {
+                setResults(<p className="error">No results found</p>);
+                setLoading(false);
+            }, 1000);
+            
             console.log(error);
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         if(searchBar.value) {
             handleSearch(searchBar.value);
             getResults(searchBar.value);
@@ -77,7 +86,7 @@ const SearchPage = ({ handleSearch }) => {
     }
 
     useEffect(() => {
-        getResults(parsed.search);
+        getResults(searchBar.value ? searchBar.value : parsed.search);
     }, [])
 
     return (
@@ -86,8 +95,10 @@ const SearchPage = ({ handleSearch }) => {
                 <input type="search" placeholder="Search" {...searchBar}/>
             </form>
 
+            {loading ? <div className="loading">Loading</div> : null}
+
             <div className="searchPageResults">
-                {results.length ? results : <p className="error">No results found</p>}
+                {results}
             </div>
         </div>
     )
