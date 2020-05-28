@@ -33,7 +33,7 @@ const NavBar = () => {
         } else {
             return (
                 <>
-                    <NavLink exact to={"/login"}>Login</NavLink>
+                    <NavLink to={"/login"}>Login</NavLink>
                 </>
             )
         }
@@ -41,6 +41,7 @@ const NavBar = () => {
     return (
         <nav>
             <NavLink exact to={"/"}>Home</NavLink>
+            <NavLink className="searchLink" to={"/search"}>Search</NavLink>
             {displayButtons()}
         </nav>
     )

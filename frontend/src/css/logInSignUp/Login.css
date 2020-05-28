@@ -24,3 +24,22 @@
     position: relative;
     left: -18px;
 }
+
+@media only screen and (max-width: 950px) {
+    .logInContainer {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .logInForm {
+        margin: none;
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .logInSwitch {
+        left: -50px;
+    }
+}

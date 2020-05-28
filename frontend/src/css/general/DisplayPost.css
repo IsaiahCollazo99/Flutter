@@ -100,3 +100,34 @@
     font-size: 22px;
     font-family: 'Fira Sans', sans-serif;
 }
+
+@media only screen and (max-width: 1545px) {
+    .displayPostContainer {
+        padding: 10px;
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .displayPostContainer {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .displayPost header {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .displayPostLeft {
+        min-width: 75px;
+        max-width: 75px;
+        height: 75px;
+    }
+
+    .displayPostBody {
+        margin-left: -70px;
+    }
+}

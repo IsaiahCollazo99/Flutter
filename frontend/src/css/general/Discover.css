@@ -9,3 +9,9 @@
     position: sticky;
     z-index: 3;
 }
+
+@media only screen and (max-width: 950px) {
+    .discover {
+        display: none;
+    }
+}

@@ -52,3 +52,23 @@
     padding-left: 15px;
     box-sizing: border-box;
 }
+
+@media only screen and (max-width: 950px) {
+    .searchPageContainer {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .searchPageContainer {
+        width: 90%;
+        align-self: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 345px) {
+    .searchPageContainer .error {
+        font-size: 24px;
+    }
+}

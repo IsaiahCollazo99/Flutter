@@ -3,8 +3,9 @@
     flex-direction: column;
     justify-content: space-evenly;
     border-bottom: 10px solid lightgrey;
-    padding: 20px 65px;
-    background-color: #213041;
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
 }
 
 .postFormBody {
@@ -44,4 +45,10 @@
     border-radius: 10px;
     background-color: #fc5185;
     font-family: 'Lato';
+}
+
+@media only screen and (max-width: 450px) {
+    .makePostForm {
+        padding: 5px;
+    }
 }

@@ -52,3 +52,66 @@ input[type="submit"]:hover {
     cursor: pointer;
     background-color: #df4976;
 }
+
+@media only screen and (max-width: 1190px) {
+    .signUpForm {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .signUpForm {
+        align-self: center;
+        justify-self: center;
+        margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .signUpForm {
+        margin-top: 25px;
+    }
+
+}
+
+@media only screen and (max-width: 420px) {
+    .signUpHeading {
+        font-size: 24px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .signUpForm {
+        margin-top: 10px;
+    }
+
+    .signUpHeading {
+        font-size: 18px;
+    }
+
+    .signUpForm input:not([type="submit"]):not([type="file"]) {
+        margin-bottom: 20px;
+        padding: 5px 10px;
+        font-size: 12px;
+        width: 100%;
+        background-color: #213041;
+        border: 3px solid #b93a60;
+        transition: 0.3s ease;
+        color: white;
+    }
+
+    .signUpForm input[type="submit"] {
+        padding: 5px 15px;
+        font-size: 20px;
+        width: 100%;
+        border-radius: 25px;
+        margin-top: 10px;
+        background-color: #fc5185;
+        font-family: 'Lato';
+    }
+
+    .signUpForm label {
+        font-size: 12px;
+        left: 0;
+    }
+}

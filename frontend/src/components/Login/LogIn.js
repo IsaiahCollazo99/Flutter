@@ -9,7 +9,7 @@ const LogIn = () => {
     const location = useLocation();
     
     return (
-        <div className="logInContainer">
+        <div className="logInContainer appCenter">
             <AuthRoute exact path={"/login"}>
                 <LogInForm />
             </AuthRoute>

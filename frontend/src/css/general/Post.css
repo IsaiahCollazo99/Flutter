@@ -97,3 +97,25 @@
     font-size: 18px;
     font-family: 'Fira Sans', sans-serif;
 }
+
+@media only screen and (max-width: 475px) {
+    .postLeft {
+        min-width: 45px;
+        max-width: 45px;
+        height: 45px;
+    }
+
+    .postContainer {
+        margin: 25px 0;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .postInfoLeft {
+        font-size: 16px;
+    }
+
+    .postBody {
+        font-size: 14px;
+    }
+}
