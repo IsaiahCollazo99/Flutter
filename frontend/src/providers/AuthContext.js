@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import firebase from '../firebase';
+import axios from 'axios';
 import { getFirebaseIdToken } from '../util/firebaseFunctions';
+import { apiURL } from '../util/apiURL';
 
 export const AuthContext = createContext();
 
@@ -8,20 +10,29 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState(null);
     const [token, setToken] = useState(null);
+    
+    const API = apiURL();
 
-    const updateUser = (user) => {
-        if(user) {
-            const { email, uid } = user;
-            const lastLogIn = user.metadata.lastLogin;
-            setCurrentUser({email, lastLogIn, id: uid});
-            getFirebaseIdToken().then(token => {
-                setToken(token);
+    const updateUser = async (user) => {
+        try {
+            if(user) {
+                const { uid } = user;
+                const lastLogIn = user.metadata.lastLogin;
+                let res = await axios.get(API + "/api/users/" + uid);
+                debugger;
+                setCurrentUser({...res.data.user, lastLogIn});
+                getFirebaseIdToken().then(token => {
+                    setToken(token);
+                    setLoading(false);
+                })
+            } else {
+                setCurrentUser(null);
                 setLoading(false);
-            })
-        } else {
-            setCurrentUser(null);
-            setLoading(false);
+            }
+        } catch(error) {
+            console.log(error);
         }
+
     }
 
     useEffect(() => {

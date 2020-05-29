@@ -40,7 +40,7 @@ const FeedPage = () => {
     }, [])
 
     const makePostSubmit = async (postBody, tags) => {
-        let res = await axios.post(API + "/api/posts", {
+        await axios.post(API + "/api/posts", {
             poster_id: currentUser.id, 
             body: postBody,
             tags, 
