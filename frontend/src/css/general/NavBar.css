@@ -62,8 +62,8 @@ nav a.active {
 
 @media only screen and (max-width: 450px) {
     nav {
-        position: fixed;
-        top: 91vh;
+        position: sticky;
+        bottom: 0;
     }
 }
 

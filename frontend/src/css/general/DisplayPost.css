@@ -1,16 +1,11 @@
 .displayPost {
     display: flex;
-    display: flex;
     flex-direction: column;
     transition: 0.3s ease;
-    height: fit-content;
-    background-color: #213041;
+    min-height: 100vh;
+    align-items: center;
 }
 
-.displayPost:hover {
-    background-color: #1d2b3a;
-    cursor: pointer;
-}
 
 .displayPost header {
     width: 100%;
@@ -28,6 +23,11 @@
     margin-top: 25px;
     padding: 25px;
     box-sizing: border-box;
+}
+
+.displayPostContainer:hover {
+    background-color: #213041;
+    cursor: pointer;
 }
 
 .displayPostLeft {
