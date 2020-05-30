@@ -84,21 +84,23 @@ module.exports = {
         try {
             const { username } = req.params;
 
-            let user = await db.one(
-                `SELECT * FROM users
-                 WHERE username=$1`, username
-            )
-
             let userPosts = await db.any(
                 `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
-                    SELECT posts.*, array_remove(ARRAY_AGG(tags.name), NULL) as tags
-                    FROM posts
-                    LEFT JOIN tags on tags.post_id = posts.id
-                    GROUP BY posts.id
+                    SELECT p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet,
+                    p_l.retweeter_id, array_remove(ARRAY_AGG(tags.name), NULL) AS tags,
+                    COUNT(p_l.liker_id) AS like_count
+                    FROM (
+                        SELECT posts.*, likes.liker_id
+                        FROM posts
+                        LEFT JOIN likes ON likes.post_id = posts.id
+                        GROUP BY posts.id, likes.liker_id
+                    ) AS p_l
+                    LEFT JOIN tags ON tags.post_id = p_l.id
+                    GROUP BY p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet, p_l.retweeter_id
                     ORDER BY created_at DESC
                 ) AS full_posts
-                JOIN users on users.id = full_posts.poster_id
+                JOIN users ON users.id = full_posts.poster_id
                 WHERE users.username=$1
                 ORDER BY full_posts.id DESC;`, username
             )
