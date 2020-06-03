@@ -132,7 +132,7 @@ module.exports = {
                      WHERE retweeter_user=$1 AND retweeted_id=$2`, [retweeter_user, retweeted_id]
                 )
 
-                if(retweetCheck) {
+                if(retweetCheck.length) {
                     throw { status: 409, error: "User already reposted" }
                 }
             }
