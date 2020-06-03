@@ -74,7 +74,8 @@ module.exports = {
             const posts = await db.any(`
                 SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
-                    SELECT p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet, p_l.retweeter_id, array_remove(ARRAY_AGG(tags.name), NULL) AS tags,             COUNT(p_l.liker_id) AS like_count
+                    SELECT p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet, 
+                    p_l.retweeter_user, p_l.retweeted_id, array_remove(ARRAY_AGG(tags.name), NULL) AS tags,             COUNT(p_l.liker_id) AS like_count
                     FROM (
                         SELECT posts.*, likes.liker_id
                         FROM posts
@@ -82,7 +83,8 @@ module.exports = {
                         GROUP BY posts.id, likes.liker_id
                     ) AS p_l
                     LEFT JOIN tags ON tags.post_id = p_l.id
-                    GROUP BY p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet, p_l.retweeter_id
+                    GROUP BY p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet, 
+                    p_l.retweeter_user, p_l.retweeted_id
                     ORDER BY created_at DESC
                 ) AS full_posts
                 JOIN users ON users.id = full_posts.poster_id
