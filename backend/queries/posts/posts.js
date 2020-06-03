@@ -126,6 +126,17 @@ module.exports = {
                 retweeted_id
             } = req.body;
 
+            if(is_retweet) {
+                const retweetCheck = await db.any(
+                    `SELECT * FROM posts
+                     WHERE retweeter_user=$1 AND retweeted_id=$2`, [retweeter_user, retweeted_id]
+                )
+
+                if(retweetCheck) {
+                    throw { status: 409, error: "User already reposted" }
+                }
+            }
+
             const post = await db.one(
                 `INSERT INTO posts (poster_id, body, created_at, is_retweet, retweeter_user, retweeted_id)
                 VALUES ($1, $2, $3, $4, $5, $6)
