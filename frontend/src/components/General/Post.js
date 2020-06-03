@@ -6,8 +6,8 @@ import { AuthContext } from '../../providers/AuthContext';
 import { apiURL } from '../../util/apiURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as unlikedHeart } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as likedHeart} from '@fortawesome/free-solid-svg-icons';
-import { faSync as repost } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as likedHeart, 
+         faSync as repostIcon } from '@fortawesome/free-solid-svg-icons';
 import blankProfile from '../../assets/images/blankProfile.png';
 
 const Post = ({ post, onDelete }) => {
@@ -60,13 +60,13 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayRepost = () => {
-        if(post.is_retweet && post.retweeter_id === currentUser.id) {
+        if(post.is_retweet && post.retweeter_user === currentUser.username) {
             return (
-                <FontAwesomeIcon className="currentUserRepost" icon={repost} />
+                <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
             )
         } else {
             return (
-                <FontAwesomeIcon className="repost" icon={repost} />
+                <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
             )
         }
     }
@@ -81,6 +81,32 @@ const Post = ({ post, onDelete }) => {
         const post_id = e.target.parentNode.title;
         await axios.post(API + "/api/likes", {liker_id: currentUser.id, post_id});
         onDelete();
+    }
+
+    const repost = async (e) => {
+        try {
+            const pathParent = e.target.parentNode.parentNode.title;
+            const svgParent = e.target.parentNode.title;
+            const retweeted_id = pathParent ? pathParent : svgParent;
+            const { poster_id, body, tags } = post;
+            const repostObj = {
+                poster_id,
+                body,
+                tags,
+                created_at: new Date().toString(),
+                is_retweet: true,
+                retweeter_user: currentUser.username,
+                retweeted_id
+            }
+            debugger;
+            let res = await axios.post(API + "/api/posts", repostObj);
+            debugger;
+            // const post_id;
+        } catch(error) {
+            console.log(error);
+            debugger;
+        }
+
     }
 
     const displayLike = () => {
@@ -103,10 +129,21 @@ const Post = ({ post, onDelete }) => {
         }
     }
 
+    const displayRepostUser = () => {
+        if(post.is_retweet) {
+            return (
+                <p className="isRepost">{post.retweeter_user} reposted</p>
+            )
+        } else {
+            return null;
+        }
+    }
+
     const profilePic = post.profile_pic ? post.profile_pic : blankProfile;
     
     return (
         <div className="postContainer" onClick={displayPost}>
+            {displayRepostUser()}
             <div className="postLeft">
                 <img src={profilePic} alt={post.name}/>
             </div>
