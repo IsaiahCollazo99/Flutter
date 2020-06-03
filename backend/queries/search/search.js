@@ -88,9 +88,9 @@ module.exports = {
                     ORDER BY created_at DESC
                 ) AS full_posts
                 JOIN users ON users.id = full_posts.poster_id
-                WHERE full_posts.body LIKE $2 OR lower($1) = ANY(full_posts.tags)
+                WHERE full_posts.body LIKE $2 OR lower($1) = ANY(full_posts.tags) OR full_posts.retweeter_user=$3
                 ORDER BY full_posts.id DESC;
-            `, [search.toLowerCase(),  '%' + search + '%']);
+            `, [search.toLowerCase(),  '%' + search + '%', search]);
 
             if(posts.length || users.length) {
                 res.status(200).json({
