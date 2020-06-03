@@ -91,7 +91,25 @@ module.exports = {
             })
             
         } catch (error) {
-            console.log(error);
+            next(error);
+        }
+    },
+
+    getPostLikers: async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const likers = await db.any(`
+                SELECT liker_id 
+                FROM likes
+                WHERE post_id=$1;`, id
+            )
+
+            res.status(200).json({
+                status: "OK",
+                likers,
+                message: "Retrieved the ID of all likers from Post" + id
+            })
+        } catch(error) {
             next(error);
         }
     },
