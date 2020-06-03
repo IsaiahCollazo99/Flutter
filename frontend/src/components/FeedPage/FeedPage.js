@@ -44,6 +44,7 @@ const FeedPage = () => {
             poster_id: currentUser.id, 
             body: postBody,
             tags, 
+            is_retweet: false,
             created_at: new Date().toString()
         })
        

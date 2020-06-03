@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
                 const { uid } = user;
                 const lastLogIn = user.metadata.lastLogin;
                 let res = await axios.get(API + "/api/users/" + uid);
-                debugger;
                 setCurrentUser({...res.data.user, lastLogIn});
                 getFirebaseIdToken().then(token => {
                     setToken(token);

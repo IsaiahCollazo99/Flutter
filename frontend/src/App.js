@@ -5,7 +5,7 @@ import NavBar from './components/General/NavBar';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import LogIn from './components/Login/LogIn';
 import Profile from './components/Profile/Profile';
-import { AuthRoute, ProtectedRoute } from './util/routesUtil';
+import { AuthRoute } from './util/routesUtil';
 import DisplayPost from './components/General/DisplayPost';
 import Discover from './components/General/Discover';
 import SearchPage from './components/SearchPage/SearchPage';
