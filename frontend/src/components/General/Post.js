@@ -98,13 +98,9 @@ const Post = ({ post, onDelete }) => {
                 retweeter_user: currentUser.username,
                 retweeted_id
             }
-            debugger;
-            let res = await axios.post(API + "/api/posts", repostObj);
-            debugger;
-            // const post_id;
+            await axios.post(API + "/api/posts", repostObj);
         } catch(error) {
             console.log(error);
-            debugger;
         }
 
     }
@@ -132,7 +128,9 @@ const Post = ({ post, onDelete }) => {
     const displayRepostUser = () => {
         if(post.is_retweet) {
             return (
-                <p className="isRepost">{post.retweeter_user} reposted</p>
+                <p className="isRepost">
+                    <Link to={`/${post.retweeter_user}`}>{post.retweeter_user}</Link> reposted:
+                </p>
             )
         } else {
             return null;

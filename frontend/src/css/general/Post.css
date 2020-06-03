@@ -3,21 +3,38 @@
 }
 
 .postContainer {
-    margin: 25px;
     padding: 25px;
     width: 90%;
-    display: flex;
-    flex-direction: row;
-    background-color: #213041;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    row-gap: 15px;
     transition: 0.3s ease;
 }
 
 .postContainer:hover {
-    background-color: #1d2b3a;
+    background-color: #213041;
     cursor: pointer;
 }
 
+.isRepost {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    font-family: 'Lato';
+    color: rgb(185, 185, 185);
+    font-size: 20px;
+}
+
+.isRepost a {
+    color: rgb(185, 185, 185);
+}
+
+.isRepost a:hover {
+    text-decoration: underline;
+}
+
 .postLeft {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
     min-width: 75px;
     max-width: 75px;
     height: 75px;
@@ -33,6 +50,8 @@
 }
 
 .postRight {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -97,13 +116,33 @@
     font-family: 'Fira Sans', sans-serif;
 }
 
-/* .postActivity {
-    height: 50px;
+.postActivity {
+    margin-top: 10px;
 }
 
-.postActivity .heart {
-    width: 100%;
-} */
+.heart {
+    margin-right: 5px;
+}
+
+.unliked:hover {
+    color: #007bff;
+}
+
+.liked:hover {
+    color: rgba(255, 0, 0, 0.308);
+}
+
+.repost:hover {
+    color: #007bff;
+}
+
+.currentUserRepost, .repost {
+    margin-left: 15px;
+}
+
+.currentUserRepost {
+    color: rgb(185, 185, 185);
+}
 
 @media only screen and (max-width: 475px) {
     .postLeft {
