@@ -60,15 +60,22 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayRepost = () => {
-        if(post.is_retweet && post.retweeter_user === currentUser.username) {
-            return (
-                <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
-            )
+        if(currentUser) {
+            if(post.is_retweet && post.retweeter_user === currentUser.username) {
+                return (
+                    <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
+                )
+            } else {
+                return (
+                    <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                )
+            }
         } else {
             return (
-                <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                <FontAwesomeIcon className="repost" icon={repostIcon}/>
             )
         }
+
     }
 
     const unlikePost = async (e) => {
@@ -108,23 +115,33 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayLike = () => {
-        if(likers[currentUser.id]) {
-            return (
-                <FontAwesomeIcon 
-                    className="liked heart" 
-                    icon={likedHeart} 
-                    onClick={unlikePost}
-                />
-            )
+        if(currentUser) {
+            if(likers[currentUser.id]) {
+                return (
+                    <FontAwesomeIcon 
+                        className="liked heart" 
+                        icon={likedHeart} 
+                        onClick={unlikePost}
+                    />
+                )
+            } else {
+                return (
+                    <FontAwesomeIcon 
+                        className="unliked heart" 
+                        icon={unlikedHeart} 
+                        onClick={likePost}
+                    />
+                )
+            }
         } else {
             return (
                 <FontAwesomeIcon 
                     className="unliked heart" 
                     icon={unlikedHeart} 
-                    onClick={likePost}
                 />
             )
         }
+        
     }
 
     const displayRepostUser = () => {

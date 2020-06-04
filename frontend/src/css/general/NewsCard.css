@@ -1,0 +1,13 @@
+.newsCardContainer {
+    width: 90%;
+    margin-top: 25px;
+    padding: 0 15px;
+    font-family: 'Lato';
+    line-height: 1.5;
+}
+
+.newsCardContainer img {
+    margin-top: 10px;
+    width: 100%;
+    border: 2px solid #B93A60;
+}
