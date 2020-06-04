@@ -24,7 +24,7 @@ const Discover = ({ handleSearch }) => {
 
     const getNews = async () => {
         try {
-            let res = await axios.get(`http://newsapi.org/v2/top-headlines?country=us&apiKey=263713b0d1bb4d38b07c99e631bfbdee`);
+            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=263713b0d1bb4d38b07c99e631bfbdee`);
             const { articles } = res.data;
             setStories(articles.map((article, i) => {
                 return (
