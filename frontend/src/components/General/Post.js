@@ -32,7 +32,7 @@ const Post = ({ post, onDelete }) => {
 
     useEffect(() => {
         getLikers();
-    })
+    }, [])
 
     const displayPost = (e) => {
         if(e.target.className === "postContainer") {
@@ -75,12 +75,14 @@ const Post = ({ post, onDelete }) => {
         const post_id = e.target.parentNode.parentNode.title;
         await axios.delete(API + `/api/likes?liker_id=${currentUser.id}&post_id=${post_id}`);
         onDelete();
+        getLikers();
     }
 
     const likePost = async (e) => {
         const post_id = e.target.parentNode.title;
         await axios.post(API + "/api/likes", {liker_id: currentUser.id, post_id});
         onDelete();
+        getLikers();
     }
 
     const repost = async (e) => {
