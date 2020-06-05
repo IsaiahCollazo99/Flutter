@@ -110,6 +110,10 @@ nav a.active {
     .butterfly {
         display: inline;
     }
+
+    nav {
+        font-size: 18px;
+    }
 }
 
 @media only screen and (max-width: 350px) {

@@ -116,13 +116,13 @@ const Profile = () => {
                     <img src={profilePic} alt={user.full_name} />
                     <div>
                         {!editing ? <p className="profileFullName">{user.full_name}</p> :
-                        <label for="profileNameInput">Full Name:
-                            <input type="text" className="profileNameInput" {...nameInput} maxlength={20}/>
+                        <label htmlFor="profileNameInput">Full Name:
+                            <input type="text" className="profileNameInput" {...nameInput} maxLength={20}/>
                         </label>}
                         {!editing ? <p className="profileUsername">@{user.username}</p> :
-                        <label for="profileUserInput">
+                        <label htmlFor="profileUserInput">
                             Username:
-                            <input type="text" className="profileUserInput" {...usernameInput} maxlength={20}/>
+                            <input type="text" className="profileUserInput" {...usernameInput} maxLength={20}/>
                         </label>}
                     </div>
                 </div>

@@ -114,8 +114,35 @@
     padding: 35px;
 }
 
+@media only screen and (max-width: 570px) {
+    .profileUserInfo button {
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+}
+
 @media only screen and (max-width: 540px) {
     .profileContainer header {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .profileFullName {
+        font-size: 24px;
+    }
+
+    .profileUserInfo button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .profileInfoLeft img {
+        min-width: 85px;
+        max-width: 85px;
+        height: 85px;
+        object-fit: cover;
+        border-radius: 100px;
+        margin-right: 25px;
     }
 }
