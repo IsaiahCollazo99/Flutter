@@ -30,7 +30,7 @@ module.exports = {
                 `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
                     SELECT p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet,
-                    p_l.retweeter_user, p_l.retweeted_id, array_remove(ARRAY_AGG(tags.name), NULL) AS tags, 
+                    p_l.retweeter_user, p_l.retweeted_id, p_l.image, array_remove(ARRAY_AGG(tags.name), NULL) AS tags, 
                     COUNT(p_l.liker_id) AS like_count
                     FROM (
                         SELECT posts.*, likes.liker_id
@@ -40,7 +40,7 @@ module.exports = {
                     ) AS p_l
                     LEFT JOIN tags ON tags.post_id = p_l.id
                     GROUP BY p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet,
-                    p_l.retweeter_user, p_l.retweeted_id
+                    p_l.retweeter_user, p_l.retweeted_id, p_l.image
                 ) AS full_posts
                 JOIN users ON users.id = full_posts.poster_id
                 ORDER BY full_posts.id DESC;`
@@ -67,7 +67,7 @@ module.exports = {
                 `SELECT users.username, users.full_name, users.profile_pic, full_posts.*
                 FROM (
                     SELECT p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet,
-                    p_l.retweeter_user, p_l.retweeted_id, array_remove(ARRAY_AGG(tags.name), NULL) AS tags,
+                    p_l.retweeter_user, p_l.retweeted_id, p_l.image, array_remove(ARRAY_AGG(tags.name), NULL) AS tags,
                     COUNT(p_l.liker_id) AS like_count
                     FROM (
                         SELECT posts.*, likes.liker_id
@@ -77,7 +77,7 @@ module.exports = {
                     ) AS p_l
                     LEFT JOIN tags ON tags.post_id = p_l.id
                     GROUP BY p_l.id, p_l.poster_id, p_l.body, p_l.created_at, p_l.is_retweet,
-                    p_l.retweeter_user, p_l.retweeted_id
+                    p_l.retweeter_user, p_l.retweeted_id, p_l.image
                 ) AS full_posts
                 JOIN users ON users.id = full_posts.poster_id
                 WHERE full_posts.id=$1
@@ -123,7 +123,8 @@ module.exports = {
                 created_at,
                 is_retweet,
                 retweeter_user, 
-                retweeted_id
+                retweeted_id,
+                image
             } = req.body;
 
             if(is_retweet) {
@@ -138,10 +139,10 @@ module.exports = {
             }
 
             const post = await db.one(
-                `INSERT INTO posts (poster_id, body, created_at, is_retweet, retweeter_user, retweeted_id)
-                VALUES ($1, $2, $3, $4, $5, $6)
-                RETURNING *`, [poster_id, body, created_at, is_retweet, retweeter_user, retweeted_id]
-            )
+                `INSERT INTO posts (poster_id, body, created_at, is_retweet, retweeter_user, retweeted_id, image)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                RETURNING *`, [poster_id, body, created_at, is_retweet, retweeter_user, retweeted_id, image]
+            );
 
             if(tags) {
                 tags.map(async (tag) => {
