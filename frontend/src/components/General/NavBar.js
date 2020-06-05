@@ -3,6 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 import '../../css/general/NavBar.css';
 import { logOut } from '../../util/firebaseFunctions';
 import { AuthContext } from '../../providers/AuthContext';
+import logo from '../../assets/images/logo.png';
+import logoButterfly from '../../assets/images/logo_butterfly.png';
 
 const NavBar = () => {
     const { currentUser } = useContext(AuthContext);
@@ -24,11 +26,17 @@ const NavBar = () => {
         }
     }
     return (
-        <nav>
-            <NavLink exact to={"/"}>Home</NavLink>
-            <NavLink className="searchLink" to={"/search"}>Search</NavLink>
-            {displayButtons()}
-        </nav>
+        <div className="navContainer">
+            <header>
+                <img src={logo} alt="Flutter" className="full"/>
+                <img src={logoButterfly} alt="Flutter" className="butterfly" />
+            </header>
+            <nav>
+                <NavLink exact to={"/"}>Home</NavLink>
+                <NavLink className="searchLink" to={"/search"}>Search</NavLink>
+                {displayButtons()}
+            </nav>
+        </div>
     )
 }
 

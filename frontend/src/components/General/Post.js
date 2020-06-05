@@ -47,7 +47,7 @@ const Post = ({ post, onDelete }) => {
 
     const displayDelete = () => {
         if(currentUser) {
-            if(currentUser.id === post.poster_id) {
+            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2") {
                 return (
                     <p onClick={deletePost} className="deletePost">Delete</p>
                 )

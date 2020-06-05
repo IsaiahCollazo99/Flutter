@@ -1,17 +1,32 @@
-nav {
+.navContainer {
+    display: flex;
+    flex-direction: column;
     width: 20%;
+    background-color: #293e55;
+    border-right: 1px solid lightgrey;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 3;
+}
+
+.navContainer img {
+    width: 100%;
+}
+
+.butterfly {
+    display: none;
+}
+
+nav {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     font-size: 32px;
-    border-right: 1px solid lightgrey;
-    position: sticky;
-    top: 0;
-    height: 100vh;
     font-family: 'Lato', sans-serif;
-    background-color: #293e55;
-    z-index: 3;
+    height: 70vh;
 }
 
 nav a:not(.active) {
@@ -35,7 +50,7 @@ nav a.active {
 }
 
 @media only screen and (max-width: 950px) {
-    nav {
+    .navContainer {
         width: 30%;
     }
     
@@ -45,31 +60,64 @@ nav a.active {
 }
 
 @media only screen and (max-width: 700px) {
+    .navContainer {
+        width: 20%;
+    }
+    
     nav {
         font-size: 24px;
-        width: 20%;
     }
 }
 
 @media only screen and (max-width: 540px) {
-    nav {
+    .navContainer {
         width: 100%;
         flex-direction: row;
         height: fit-content;
         padding: 20px 0;
     }
+
+    .navContainer header {
+        width: 50%;
+    }
+
+    .full {
+        margin-top: -20px;
+    }
+
+    nav {
+        flex-direction: row;
+        height: fit-content;
+        align-self: center;
+    }
 }
 
 @media only screen and (max-width: 450px) {
-    nav {
+    .navContainer {
         position: sticky;
         bottom: 0;
+        opacity: 100%;
+    }
+
+    .navContainer header {
+        width: 30%;
+    }
+
+    .full {
+        display: none;
+    }
+
+    .butterfly {
+        display: inline;
     }
 }
 
 @media only screen and (max-width: 350px) {
+    .navContainer {
+        padding: 10px;
+    }
+
     nav {
         font-size: 18px;
-        padding: 10px;
     }
 }

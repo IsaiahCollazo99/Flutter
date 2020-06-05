@@ -46,7 +46,7 @@ const Discover = ({ handleSearch }) => {
     }
 
     useEffect(() => {
-        getNews();
+        // getNews();
     }, [])
     
     // const displayLogIn = () => {

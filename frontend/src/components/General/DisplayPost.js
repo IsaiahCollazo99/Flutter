@@ -60,7 +60,7 @@ const DisplayPost = () => {
 
     const displayDelete = () => {
         if(currentUser) {
-            if(currentUser.id === post.poster_id) {
+            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2") {
                 return (
                     <p onClick={deletePost} className="deleteDisplay">Delete</p>
                 )
@@ -99,23 +99,33 @@ const DisplayPost = () => {
     }
 
     const displayLike = () => {
-        if(likers[currentUser.id]) {
-            return (
-                <FontAwesomeIcon 
-                    className="liked heart" 
-                    icon={likedHeart} 
-                    onClick={unlikePost}
-                />
-            )
+        if(currentUser) {
+            if(likers[currentUser.id]) {
+                return (
+                    <FontAwesomeIcon 
+                        className="liked heart" 
+                        icon={likedHeart} 
+                        onClick={unlikePost}
+                    />
+                )
+            } else {
+                return (
+                    <FontAwesomeIcon 
+                        className="unliked heart" 
+                        icon={unlikedHeart} 
+                        onClick={likePost}
+                    />
+                )
+            }
         } else {
             return (
                 <FontAwesomeIcon 
                     className="unliked heart" 
                     icon={unlikedHeart} 
-                    onClick={likePost}
                 />
             )
         }
+
     }
 
     const repost = async (e) => {
