@@ -35,7 +35,7 @@ const Post = ({ post, onDelete }) => {
     }, [])
 
     const displayPost = (e) => {
-        if(e.target.className === "postContainer") {
+        if(e.target.nodeName === "DIV") {
             history.push(`/${post.username}/status/${post.id}`);
         }
     }
@@ -97,7 +97,7 @@ const Post = ({ post, onDelete }) => {
             const pathParent = e.target.parentNode.parentNode.title;
             const svgParent = e.target.parentNode.title;
             const retweeted_id = pathParent ? pathParent : svgParent;
-            const { poster_id, body, tags } = post;
+            const { poster_id, body, tags, image } = post;
             const repostObj = {
                 poster_id,
                 body,
@@ -105,7 +105,8 @@ const Post = ({ post, onDelete }) => {
                 created_at: new Date().toString(),
                 is_retweet: true,
                 retweeter_user: currentUser.username,
-                retweeted_id
+                retweeted_id, 
+                image
             }
             await axios.post(API + "/api/posts", repostObj);
         } catch(error) {
@@ -183,6 +184,8 @@ const Post = ({ post, onDelete }) => {
                     <p className="postBody">
                         {post.body}
                     </p>
+
+                    {post.image ? <img src={post.image} alt={post.username} /> : null}
                         
                     <div className="postActivity" title={post.id}>
                         {displayLike()}

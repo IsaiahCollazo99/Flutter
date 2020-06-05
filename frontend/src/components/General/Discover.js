@@ -24,9 +24,18 @@ const Discover = ({ handleSearch }) => {
 
     const getNews = async () => {
         try {
-            let res = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=263713b0d1bb4d38b07c99e631bfbdee`);
-            const { articles } = res.data;
-            setStories(articles.map((article, i) => {
+            let res = await axios({
+                "url":"https://microsoft-azure-bing-news-search-v1.p.rapidapi.com",
+                "headers":{
+                    "content-type":"application/octet-stream",
+                    "x-rapidapi-host":"microsoft-azure-bing-news-search-v1.p.rapidapi.com",
+                    "x-rapidapi-key":"141c23a7d4msh5ef06f55c75a949p136086jsnd07e585c2813",
+                    "useQueryString":true
+                }
+            })
+            
+            const { value } = res.data;
+            setStories(value.map((article, i) => {
                 return (
                     <NewsCard article={article} key={i}/>
                 )
@@ -37,7 +46,7 @@ const Discover = ({ handleSearch }) => {
     }
 
     useEffect(() => {
-        getNews();
+        // getNews();
     }, [])
     
     // const displayLogIn = () => {

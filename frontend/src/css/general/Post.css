@@ -116,6 +116,13 @@
     font-family: 'Fira Sans', sans-serif;
 }
 
+.post img {
+    width: 50%;
+    object-fit: cover;
+    align-self: center;
+    margin-top: 10px;
+}
+
 .postActivity {
     margin-top: 10px;
 }

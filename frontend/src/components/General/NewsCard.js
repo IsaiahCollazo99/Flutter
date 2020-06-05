@@ -5,8 +5,8 @@ const NewsCard = ({ article }) => {
     return (
         <div className="newsCardContainer">
             <a href={article.url} target="_blank">
-                {article.title}
-                {article.urlToImage ? <img src={article.urlToImage} alt="article thumbnail"/> : null}
+                {article.name}
+                {article.image ? <img src={article.image.thumbnail.contentUrl} alt="article thumbnail"/> : null}
             </a>
         </div>
     )

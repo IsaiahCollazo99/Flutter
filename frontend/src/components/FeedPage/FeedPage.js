@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import firebase from 'firebase';
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
 import Post from '../General/Post';
@@ -39,16 +40,41 @@ const FeedPage = () => {
         getAllPost();
     }, [])
 
-    const makePostSubmit = async (postBody, tags) => {
+    const postRequest = async (post) => {
+        const { body, tags, image } = post;
         await axios.post(API + "/api/posts", {
             poster_id: currentUser.id, 
-            body: postBody,
+            body,
             tags, 
+            image,
             is_retweet: false,
             created_at: new Date().toString()
         })
        
         getAllPost();
+    }
+
+    const uploadPicture = async (post) => {
+        let storageRef = firebase.storage().ref('post_pictures/' + post.image.name);
+        let upload = storageRef.put(post.image);
+
+        upload.on('state_changed', snapshot => {
+
+        }, error => {
+            console.log(error);
+            throw error;
+        },async  () => {
+            let image = await upload.snapshot.ref.getDownloadURL();
+            postRequest({body: post.postBody, tags: post.tags, image});
+        })
+    }
+
+    const makePostSubmit = (postBody, tags, image) => {
+        if(image) {
+            uploadPicture({postBody, tags, image});
+        } else {
+            postRequest({postBody, tags, image});
+        }
     }
 
     return (

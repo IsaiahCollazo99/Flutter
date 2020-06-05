@@ -123,7 +123,7 @@ const DisplayPost = () => {
             const pathParent = e.target.parentNode.parentNode.title;
             const svgParent = e.target.parentNode.title;
             const retweeted_id = pathParent ? pathParent : svgParent;
-            const { poster_id, body, tags } = post;
+            const { poster_id, body, tags, image } = post;
             const repostObj = {
                 poster_id,
                 body,
@@ -131,7 +131,8 @@ const DisplayPost = () => {
                 created_at: new Date().toString(),
                 is_retweet: true,
                 retweeter_user: currentUser.username,
-                retweeted_id
+                retweeted_id,
+                image
             }
             await axios.post(API + "/api/posts", repostObj);
             fetchPost();
@@ -184,6 +185,8 @@ const DisplayPost = () => {
                         <div className="displayPostBody">
                             {post.body}
                         </div>
+
+                        {post.image ? <img src={post.image} alt={post.username} /> : null}
                         
                         <div className="displayPostActivity" title={post.id}>
                             {displayLike()}

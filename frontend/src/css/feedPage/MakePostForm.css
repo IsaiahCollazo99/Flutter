@@ -18,6 +18,7 @@
     background-color: #1d2b3a;
     transition: 0.3s ease;
     color: white;
+    margin-bottom: 10px;
 }
 
 .postFormBody:focus {
@@ -25,12 +26,45 @@
     border: 3px solid #ff175d;
 }
 
+.fileName {
+    margin-left: 5px;
+    margin-bottom: 10px;
+    font-family: 'Fira Sans';
+}
+
+.makePostForm span {
+    color: #007bff;
+}
+
 .formBottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 10px;
     font-family: 'Lato', sans-serif;
+}
+
+.formBottom div {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-around;
+}
+
+.imageUploadContainer {
+    width: 40%;
+}
+
+.imageUploadContainer input {
+    display: none;
+}
+
+.imageUpload {
+    font-size: 32px;
+}
+
+.imageUpload:hover {
+    cursor: pointer;
+    color: #007bff;
 }
 
 .wordCount {

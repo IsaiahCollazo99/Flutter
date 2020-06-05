@@ -114,6 +114,13 @@
     flex-direction: column;
 }
 
+.displayPostPost img {
+    width: 50%;
+    object-fit: cover;
+    align-self: center;
+    margin-top: 10px;
+}
+
 .displayPostBody {
     word-wrap: break-word;
     display: inline-block;
@@ -122,7 +129,7 @@
 }
 
 .displayPostActivity {
-    margin-top: 10px;
+    margin: 10px 0; 
 }
 
 @media only screen and (max-width: 1545px) {

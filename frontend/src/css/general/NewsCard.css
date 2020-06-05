@@ -1,13 +1,35 @@
 .newsCardContainer {
     width: 90%;
-    margin-top: 25px;
-    padding: 0 15px;
+    margin-top: 15px;
+    padding: 10px 15px;
     font-family: 'Lato';
     line-height: 1.5;
+    border: 1px solid #007bff;
+}
+
+.newsCardContainer a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.newsCardContainer a:hover {
+    text-decoration: underline;
 }
 
 .newsCardContainer img {
     margin-top: 10px;
-    width: 100%;
+    max-width: 100%;
     border: 2px solid #B93A60;
+}
+
+@media only screen and (max-width: 1100px) {
+    .newsCardContainer {
+        font-size: 14px;
+    }
+
+    .newsCardContainer img {
+        width: 25%;
+    }
 }
