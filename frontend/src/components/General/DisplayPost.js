@@ -73,15 +73,22 @@ const DisplayPost = () => {
     }
 
     const displayRepost = () => {
-        if(post.is_retweet && post.retweeter_user === currentUser.username) {
-            return (
-                <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
-            )
+        if(currentUser) {
+            if(post.is_retweet && post.retweeter_user === currentUser.username) {
+                return (
+                    <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
+                )
+            } else {
+                return (
+                    <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                )
+            }
         } else {
             return (
-                <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                <FontAwesomeIcon icon={repostIcon}/>
             )
         }
+
     }
 
     const unlikePost = async (e) => {
