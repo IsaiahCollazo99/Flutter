@@ -156,5 +156,47 @@ module.exports = {
         } catch(error) {
             next(error);
         }
+    },
+
+    updateUser: async (req, res, next) => {
+        try {
+            const {
+                full_name, username
+            } = req.body;
+
+            const { id } = req.params;
+
+            let user = {};
+
+            if(full_name) {
+                let updated = await db.one(
+                    `UPDATE users
+                    SET full_name=$1
+                    WHERE id=$2 RETURNING *`, [full_name, id]
+                );
+                user = {
+                    ...updated
+                }
+            }
+
+            if(username) {
+                let updated = await db.one(
+                    `UPDATE users
+                    SET username=$1
+                    WHERE id=$2 RETURNING *`, [username, id]
+                );
+                user = {
+                    ...updated
+                }
+            }
+
+            res.status(200).json({
+                status: "OK",
+                user,
+                message: "Successfully updated user"
+            })
+        } catch(error) {
+            next(error);
+        }
     }
 }
