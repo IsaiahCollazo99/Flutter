@@ -17,12 +17,18 @@
     width: 100%;
     font-family: 'Lato';
     padding: 25px 0 25px 10px; 
-    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.profileInfoLeft {
+    width: 70%;
     display: flex;
     flex-direction: row;
 }
 
-.profileUserInfo img {
+.profileInfoLeft img {
     min-width: 125px;
     max-width: 125px;
     height: 125px;
@@ -31,7 +37,7 @@
     margin-right: 25px;
 }
 
-.profileUserInfo div {
+.profileInfoLeft div {
     display: flex;
     flex-direction: column;
 }
@@ -43,6 +49,43 @@
 .profileUsername {
     font-size: 20px;
     color: rgb(185, 185, 185);
+}
+
+.profileUserInfo button {
+    height: fit-content;
+    font-size: 18px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: #fc5185;
+    font-family: 'Lato';
+}
+
+.profileUserInfo button:hover {
+    cursor: pointer;
+    background-color: #DF4976;
+}
+
+.profileInfoLeft label {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.profileInfoLeft input[type="text"] {
+    margin-top: 3px;
+    width: 90%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    background-color: #213041;
+    border: 3px solid #b93a60;
+    transition: 0.3s ease;
+    color: white;
+}
+
+.profileInfoLeft input[type="text"]:focus {
+    outline: none;
+    border: 3px solid #ff175d;
 }
 
 .profileContainer section {
