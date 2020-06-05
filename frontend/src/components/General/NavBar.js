@@ -28,8 +28,10 @@ const NavBar = () => {
     return (
         <div className="navContainer">
             <header>
-                <img src={logo} alt="Flutter" className="full"/>
-                <img src={logoButterfly} alt="Flutter" className="butterfly" />
+                <Link to="/">
+                    <img src={logo} alt="Flutter" className="full"/>
+                    <img src={logoButterfly} alt="Flutter" className="butterfly" />
+                </Link>
             </header>
             <nav>
                 <NavLink exact to={"/"}>Home</NavLink>

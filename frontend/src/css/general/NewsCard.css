@@ -1,10 +1,14 @@
 .newsCardContainer {
     width: 90%;
     margin-top: 15px;
-    padding: 10px 15px;
+    padding: 10px 10px;
     font-family: 'Lato';
     line-height: 1.5;
-    border: 1px solid #007bff;
+    /* border: 3px solid #007bff; */
+}
+
+.newsCardContainer:hover {
+    background-color: #213041;
 }
 
 .newsCardContainer a {
@@ -18,10 +22,15 @@
     text-decoration: underline;
 }
 
+.newsCardContainer a:hover img {
+    border: 2px solid #ff175d;
+}
+
 .newsCardContainer img {
     margin-top: 10px;
     max-width: 100%;
     border: 2px solid #B93A60;
+    transition: 0.3s ease;
 }
 
 @media only screen and (max-width: 1100px) {
