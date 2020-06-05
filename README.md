@@ -26,11 +26,12 @@ Users can:
 | Future                            | Working                      | Completed                                 |
 |-----------------------------------|------------------------------|-------------------------------------------|
 | Follow users, and limit feed page | Add user bio                 | Display User Posts                        |
-| Pin a post to top of your profile | Ability to edit your profile | Allow User to search                      |
+| Pin a post to top of your profile |                              | Allow User to search                      |
 | Save a post to a collection       |                              | Make new posts with pictures and hashtags |
 | Direct Messaging                  |                              | Like and repost all posts                 |
 | Tag users in a post               |                              | Create account and login with Firebase    |
 |                                   |                              | Display all top news headlines            |
+|                                   |                              | Ability to edit your profile              |
 
 ### Installation Instructions <a name="installation"></a>
 1. Fork and clone this repository
