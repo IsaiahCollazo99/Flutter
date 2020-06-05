@@ -2,19 +2,24 @@
 Flutter is a Social Media Web App taking inspiration from the likes of Twitter
 
 ## Table of contents
-1. [Introduction](#introduction)
-2. [Some paragraph](#paragraph1)
-    1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
+1. [Screenshots](#screenshots)
+2. [Features](#features)
+    1. [Technologies](#technologies)
+3. [Installation Instructions](#installation)
 
-### This is the introduction <a name="introduction"></a>
-Some introduction text, formatted in heading 2 style
+### Screenshots <a name="screenshots"></a>
 
-### Some paragraph <a name="paragraph1"></a>
-The first paragraph text
 
-### Sub paragraph <a name="subparagraph1"></a>
-This is a sub paragraph, formatted in heading 3 style
+### Features <a name="features"></a>
+* Features
+* Go
+* Here
 
-### Another paragraph <a name="paragraph2"></a>
+### Technologies <a name="technologies"></a>
+Technologies Intro
+* Technologies
+* Go
+* Here
+
+### Installation Instructions <a name="installation"></a>
 The second paragraph text
