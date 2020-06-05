@@ -5,8 +5,8 @@ Flutter is a Social Media Web App taking inspiration from the likes of Twitter
 1. [Screenshots](#screenshots)
 2. [Features](#features)
     1. [Timeline](#timeline)
-3. [Technologies](#technologies)
-4. [Installation Instructions](#installation)
+3. [Installation Instructions](#installation)
+4. [Technologies](#technologies)
 
 ### Screenshots <a name="screenshots"></a>
 ![Feed Page](https://i.imgur.com/jIT7oBA.png)
@@ -32,11 +32,17 @@ Users can:
 | Tag users in a post               |                              | Create account and login with Firebase    |
 |                                   |                              | Display all top news headlines            |
 
-### Technologies <a name="technologies"></a>
-Technologies Intro
-* Technologies
-* Go
-* Here
-
 ### Installation Instructions <a name="installation"></a>
-The second paragraph text
+1. Fork and clone this repository
+2. In the root folder run ```npm start``` (This will install and run the backend)
+3. From the root folder still run psql -f backend/db/schema.db (This will create the local database)
+    * You might want to check to make sure the database was correctly created, if not check the file for any commented code and uncomment all of it
+4. After the database is installed you can ```cd frontend``` and run ```npm i``` or ```npm install``` to install all necessary packages
+5. Start coding! (to check the live test run ```npm start``` in the frontend folder
+
+### Technologies <a name="technologies"></a>
+Flutter was created using
+* React
+* Express.js
+* Firebase
+* SQL
