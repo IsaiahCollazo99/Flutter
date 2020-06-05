@@ -14,13 +14,13 @@ Flutter is a Social Media Web App taking inspiration from the likes of Twitter
 ![Search Page](https://i.imgur.com/80uRYv1.png)
 
 ### Features <a name="features"></a>
-Users can:
-    * View all posts by other users
-    * Create an account and login with Firebase
-    * Make new posts with pictures and hashtags (optional)
-    * Like and repost all posts (including their own)
-    * Search for posts, users, or hashtags
-    * View top news headlines
+Users can:  
+* View all posts by other users  
+* Create an account and login with Firebase  
+* Make new posts with pictures and hashtags (optional)  
+* Like and repost all posts (including their own)  
+* Search for posts, users, or hashtags  
+* View top news headlines  
 
 #### Timeline <a name="timeline"></a>
 | Future                            | Working                      | Completed                                 |
