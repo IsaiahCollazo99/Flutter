@@ -106,12 +106,17 @@ const Profile = () => {
     if(user) {
         profilePic = user.profile_pic ? user.profile_pic : blankProfile;
     }
+
+
+    const userInfoStyle = currentUser ? {
+        'justifyContent': currentUser.username === username ? 'space-evenly' : 'flex-start'
+    } : {'justifyContent': 'flex-start'}
     
     return (
         <div className="profileContainer appCenter">
             <header>{user ? user.full_name : "Profile"}</header>
             {user ? 
-            <div className="profileUserInfo">
+            <div className="profileUserInfo"  style={userInfoStyle}>
                 <div className="profileInfoLeft">
                     <img src={profilePic} alt={user.full_name} />
                     <div>

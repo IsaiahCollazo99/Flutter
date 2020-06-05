@@ -19,7 +19,6 @@
     padding: 25px 0 25px 10px; 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
 
 .profileInfoLeft {
