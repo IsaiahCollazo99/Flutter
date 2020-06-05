@@ -12,10 +12,20 @@ ___
 
 ### Screenshots <a name="screenshots"></a>
 ___
->! Feed Page ![Feed Page](https://i.imgur.com/jIT7oBA.png)
+<details>
+    <summary><b>Feed Page</b></summary>
+    <img src="https://i.imgur.com/jIT7oBA.png" alt="Feed Page">
+</details>
 
-![Profile Page](https://i.imgur.com/YDXtN6q.png)
-![Search Page](https://i.imgur.com/80uRYv1.png)
+<details>
+    <summary><b>Profile Page</b></summary>
+    <img src="https://i.imgur.com/YDXtN6q.png" alt="Profile Page">
+</details>
+
+<details>
+    <summary><b>Search Page</b></summary>
+    <img src="https://i.imgur.com/80uRYv1.png" alt="Search Page">
+</details>
 
 ___
 
@@ -29,10 +39,8 @@ Users can:
 * Search for posts, users, or hashtags  
 * View top news headlines  
 
-___
-
 #### Timeline <a name="timeline"></a>
-___
+
 | Future                            | Working                      | Completed                                 |
 |-----------------------------------|------------------------------|-------------------------------------------|
 | Follow users, and limit feed page | Add user bio                 | Display User Posts                        |
