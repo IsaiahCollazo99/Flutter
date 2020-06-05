@@ -8,12 +8,19 @@ Flutter is a Social Media Web App taking inspiration from the likes of Twitter
 3. [Installation Instructions](#installation)
 4. [Technologies](#technologies)
 
+___
+
 ### Screenshots <a name="screenshots"></a>
-![Feed Page](https://i.imgur.com/jIT7oBA.png)
+___
+>! Feed Page ![Feed Page](https://i.imgur.com/jIT7oBA.png)
+
 ![Profile Page](https://i.imgur.com/YDXtN6q.png)
 ![Search Page](https://i.imgur.com/80uRYv1.png)
 
+___
+
 ### Features <a name="features"></a>
+___
 Users can:  
 * View all posts by other users  
 * Create an account and login with Firebase  
@@ -22,7 +29,10 @@ Users can:
 * Search for posts, users, or hashtags  
 * View top news headlines  
 
+___
+
 #### Timeline <a name="timeline"></a>
+___
 | Future                            | Working                      | Completed                                 |
 |-----------------------------------|------------------------------|-------------------------------------------|
 | Follow users, and limit feed page | Add user bio                 | Display User Posts                        |
@@ -33,7 +43,9 @@ Users can:
 |                                   |                              | Display all top news headlines            |
 |                                   |                              | Ability to edit your profile              |
 
+___
 ### Installation Instructions <a name="installation"></a>
+___
 1. Fork and clone this repository
 2. In the root folder run ```npm start``` (This will install and run the backend)
 3. From the root folder still run ```psql -f backend/db/schema.sql``` (This will create the local database)
@@ -41,7 +53,9 @@ Users can:
 4. After the database is installed you can ```cd frontend``` and run ```npm i``` or ```npm install``` to install all necessary packages
 5. Start coding! (to check the live test run ```npm start``` in the frontend folder
 
+___
 ### Technologies <a name="technologies"></a>
+___
 Flutter was created using
 * React
 * Express.js
