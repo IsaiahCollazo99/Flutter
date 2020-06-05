@@ -35,7 +35,7 @@ Users can:
 ### Installation Instructions <a name="installation"></a>
 1. Fork and clone this repository
 2. In the root folder run ```npm start``` (This will install and run the backend)
-3. From the root folder still run psql -f backend/db/schema.db (This will create the local database)
+3. From the root folder still run ```psql -f backend/db/schema.sql``` (This will create the local database)
     * You might want to check to make sure the database was correctly created, if not check the file for any commented code and uncomment all of it
 4. After the database is installed you can ```cd frontend``` and run ```npm i``` or ```npm install``` to install all necessary packages
 5. Start coding! (to check the live test run ```npm start``` in the frontend folder
