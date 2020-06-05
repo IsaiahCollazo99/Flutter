@@ -45,13 +45,21 @@ module.exports = {
     getUserByUsername: async (req, res, next) => {
         try{
             const { username } = req.params;
+            const { userProfile } = req.query;
             let user = await db.any(
                 `SELECT * FROM users
                 WHERE username=$1`, username
             )
 
             if(user.length) {
-                throw { status: 409, error: "User with that username exists" }
+                if(userProfile) {
+                    res.status(200).json({
+                        status: "OK",
+                        message: "Successfuly retrieved user"
+                    })
+                } else {
+                    throw { status: 409, error: "User with that username exists" }
+                }
             } else {
                 res.status(200).json({
                     status: "OK",
