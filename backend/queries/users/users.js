@@ -55,6 +55,7 @@ module.exports = {
                 if(userProfile) {
                     res.status(200).json({
                         status: "OK",
+                        user: user[0],
                         message: "Successfuly retrieved user"
                     })
                 } else {
