@@ -64,7 +64,11 @@
 -- ALTER TABLE posts
 -- RENAME retweeter_id TO retweeter_user;
 -- ADD retweeted_id INT REFERENCES posts(id) ON DELETE CASCADE;
-ALTER TABLE posts
+-- ALTER TABLE posts
 -- DROP COLUMN IF EXISTS retweeter_user;
 -- ADD retweeter_user VARCHAR REFERENCES users(username) ON DELETE CASCADE; 
-ADD image VARCHAR;
+-- ADD image VARCHAR;
+
+-- INSERT INTO users
+-- (id, full_name, email, username)
+-- VALUES ('2uSTOBiWepWyjyoadawGF0Jvtyh2', 'Admin', 'admin@admin.com', 'admin');
