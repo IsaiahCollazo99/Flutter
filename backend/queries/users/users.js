@@ -12,10 +12,7 @@ module.exports = {
             }
         } catch (error) {
             if(error.received === 0) {
-                res.status(404).json({
-                    status: 404,
-                    error: `User ID: ${id} doesn't exist`
-                })
+                next({ status: 404, error: `User ID: ${id} doesn't exist` });
             } else {
                 next(error);
             }

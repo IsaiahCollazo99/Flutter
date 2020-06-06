@@ -27,14 +27,14 @@ const LogInForm = () => {
 
                 {error ? <div className="error">{error}</div> : null}
 
-                <label for="email">Email: </label>
+                <label htmlFor="email">Email: </label>
                 <input type="email"
                     value={email}
                     onChange={(e) => setEmail(e.currentTarget.value)}
                     name="email"
                 />
     
-                <label for="password">Password: </label>
+                <label htmlFor="password">Password: </label>
                 <input type="password"
                     value={password}
                     onChange={(e) => setPassword(e.currentTarget.value)}

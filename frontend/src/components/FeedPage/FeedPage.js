@@ -8,13 +8,21 @@ import { AuthContext } from '../../providers/AuthContext';
 import '../../css/feedPage/FeedPage.css';
 
 const FeedPage = () => {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, updateUser } = useContext(AuthContext);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const API = apiURL();
     
     const getAllPost = async () => {
         try {
+            if(currentUser) {
+                if(currentUser.id && !currentUser.username) {
+                    while(!currentUser.username) {
+                        updateUser(currentUser);
+                    }
+                }
+            }
+            
             let res = await axios({
                 method: "GET",
                 url: API + "/api/posts"
@@ -41,7 +49,7 @@ const FeedPage = () => {
     }, [])
 
     const postRequest = async (post) => {
-        const { body, tags, image } = post;
+        const { postBody: body, tags, image } = post;
         await axios.post(API + "/api/posts", {
             poster_id: currentUser.id, 
             body,

@@ -24,18 +24,24 @@ const SignUpForm = () => {
     const [usernameClass, setUsernameClass] = useState(null);
 
     const handleSignUp = async (url = null) => {
-        await axios.get(API + "/api/users/username/" + username.value);
-        let res = await signUp(email.value, password.value);
-        await axios.post(API + "/api/users", {
-            id: res.user.uid, 
-            email: email.value, 
-            full_name: name.value, 
-            username: username.value,
-            profile_pic: url
-        })
-        setError(null);
-        history.push("/")
-        setLoading(false);
+        try {
+            await axios.get(API + "/api/users/username/" + username.value);
+            let res = await signUp(email.value, password.value);
+            axios.post(API + "/api/users", {
+                id: res.user.uid, 
+                email: email.value, 
+                full_name: name.value, 
+                username: username.value,
+                profile_pic: url
+            }).then(() => {
+                setError(null);
+                history.push("/")
+                setLoading(false);
+            })
+        } catch(error) {
+            console.log(error);
+        }
+
     }
 
     const profilePictureUpload = async () => {
@@ -90,19 +96,19 @@ const SignUpForm = () => {
 
                 {error ? <div className="error">{error}</div> : null}
                 
-                <label for="email" className="formLabel">Email: </label>
+                <label htmlFor="email" className="formLabel">Email: </label>
                 <input type="email" {...email} name="email" autoComplete="on" className={emailClass} required/>
 
-                <label for="password" className="formLabel">Password: </label>
+                <label htmlFor="password" className="formLabel">Password: </label>
                 <input type="password" {...password} name="password" autoComplete="on"  required/>
 
-                <label for="name" className="formLabel">Name: </label>
+                <label htmlFor="name" className="formLabel">Name: </label>
                 <input type="text" {...name} name="name" autoComplete="on" required/>
 
-                <label for="username" className="formLabel">Username: </label>
+                <label htmlFor="username" className="formLabel">Username: </label>
                 <input type="text" {...username} name="username" className={usernameClass} autoComplete="on" required/>
 
-                <label for="profilePic" className="formLabel">Profile Picture: (Optional)</label>
+                <label htmlFor="profilePic" className="formLabel">Profile Picture: (Optional)</label>
                 <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handlePicUpload}/>
 
                 { loading ? <FaSpinner size="100px"/> : null}

@@ -25,10 +25,13 @@ const AuthProvider = ({ children }) => {
                     setLoading(false);
                 })
             } else {
-                setCurrentUser(null);
+                setCurrentUser(user ? user : null);
                 setLoading(false);
             }
         } catch(error) {
+            if(error.response) {
+                updateUser(user);
+            }
             console.log(error);
         }
 
@@ -41,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
     if(loading) return (<div>Loading...</div>)
     return (
-        <AuthContext.Provider value={{currentUser, token}}>
+        <AuthContext.Provider value={{currentUser, token, updateUser}}>
             {children}
         </AuthContext.Provider>
     )
