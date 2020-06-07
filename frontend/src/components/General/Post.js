@@ -47,7 +47,7 @@ const Post = ({ post, onDelete }) => {
 
     const displayDelete = () => {
         if(currentUser) {
-            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2") {
+            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2" || currentUser.user === post.retweeter_user) {
                 return (
                     <p onClick={deletePost} className="deletePost">Delete</p>
                 )
@@ -109,6 +109,7 @@ const Post = ({ post, onDelete }) => {
                 image
             }
             await axios.post(API + "/api/posts", repostObj);
+            onDelete();
         } catch(error) {
             console.log(error);
         }

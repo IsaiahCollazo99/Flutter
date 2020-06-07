@@ -73,7 +73,7 @@ const FeedPage = () => {
             throw error;
         },async  () => {
             let image = await upload.snapshot.ref.getDownloadURL();
-            postRequest({body: post.postBody, tags: post.tags, image});
+            postRequest({postBody: post.postBody, tags: post.tags, image});
         })
     }
 
