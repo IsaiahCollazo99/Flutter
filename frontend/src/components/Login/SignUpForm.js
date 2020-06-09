@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { apiURL } from '../../util/apiURL';
-import { signUp } from '../../util/firebaseFunctions'
+import { signUp, uploadPicture } from '../../util/firebaseFunctions'
 import { useInput } from '../../util/customHooks';
 import { FaSpinner } from 'react-icons/fa';
 import '../../css/logInSignUp/SignUpForm.css';
@@ -23,54 +23,44 @@ const SignUpForm = () => {
     const [emailClass, setEmailClass] = useState(null);
     const [usernameClass, setUsernameClass] = useState(null);
 
-    const handleSignUp = async (url = null) => {
+    const postUser = async ( firebaseUser ) => {
         try {
-            await axios.get(API + "/api/users/username/" + username.value);
-            let res = await signUp(email.value, password.value);
-            axios.post(API + "/api/users", {
-                id: res.user.uid, 
-                email: email.value, 
-                full_name: name.value, 
+            const userObj = {
+                id: firebaseUser.id,
+                email: email.value,
+                full_name: name.value,
                 username: username.value,
-                profile_pic: url
-            }).then(() => {
-                setError(null);
-                history.push("/")
-                setLoading(false);
-            })
+                profile_pic: firebaseUser.url
+            }
+            
+            await axios.post(API + "/api/users", userObj)
+    
+            setError(null);
+            history.push("/")
+            setLoading(false);
         } catch(error) {
             console.log(error);
         }
-
-    }
-
-    const profilePictureUpload = async () => {
-        let storageRef = firebase.storage().ref('profile_pictures/' + profilePicture.name)
-        let upload = storageRef.put(profilePicture);
-        let url;
-
-        upload.on('state_changed', snapshot => {
-
-        }, error => {
-            console.log(error);
-            throw error;
-        },async  () => {
-            url = await upload.snapshot.ref.getDownloadURL();
-            await handleSignUp(url);
-        })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        try {
-            if(profilePicture) {
-                await profilePictureUpload();
-            } else {
-                await handleSignUp();
-            }     
 
-        } catch (error) {
+        try {
+            // Check to see if a user by the entered username exists
+            await axios.get(API + "/api/users/username/" + username.value);
+
+            const { user: firebaseUser } = await signUp(email.value, password.value);
+
+            if(profilePicture) {
+                uploadPicture('profile_pictures/', {id: firebaseUser.uid, image: profilePicture}, postUser);
+            } else {
+                postUser({id: firebaseUser.uid, url: null});
+            }
+
+        } catch(error) {
+            console.log(error);
             if(error.response) {
                 setError("User with that username already exists")
                 setEmailClass(null);
@@ -81,7 +71,7 @@ const SignUpForm = () => {
                 setEmailClass("error");
                 setUsernameClass(null);
             }
-        } 
+        }
     }
 
     const handlePicUpload = (e) => {

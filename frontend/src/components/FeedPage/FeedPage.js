@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import firebase from 'firebase';
 import MakePostForm from './MakePostForm';
 import Post from '../../components/General/Post';
+import { uploadPicture } from '../../util/firebaseFunctions';
 import { AuthContext } from '../../providers/AuthContext';
 import { getAllPosts } from '../../util/apiCalls/getRequests';
 import { createPost } from '../../util/apiCalls/postRequests';
@@ -29,23 +29,9 @@ const FeedPage = () => {
         getPostsCall();
     }, [])
 
-    const uploadPicture = async (post) => {
-        let storageRef = firebase.storage().ref('post_pictures/' + post.image.name);
-        let upload = storageRef.put(post.image);
-
-        upload.on('state_changed', snapshot => {
-        }, error => {
-            console.log(error);
-            throw error;
-        },async  () => {
-            let image = await upload.snapshot.ref.getDownloadURL();
-            await createPost({postBody: post.postBody, tags: post.tags, image}, currentUser);
-        })
-    }
-
     const makePostSubmit = async (postBody, tags, image) => {
         if(image) {
-            await uploadPicture({postBody, tags, image});
+            uploadPicture('post_pictures/', {postBody, tags, image}, createPost, currentUser);
         } else {
             await createPost({postBody, tags, image}, currentUser);
         }
