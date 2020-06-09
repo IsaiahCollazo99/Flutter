@@ -22,32 +22,38 @@ const MakePostForm = ({ makePostSubmit }) => {
         }
     }, [wordCount])
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const findTags = () => {
+        let tags = [];
+        let currentTag = "";
+        let tagFound = false;
 
-        // Only allow a post to be sent if it's between 0 and 280 characters
-        if((wordCount >= 0 && wordCount < 280) || image) {
-            let allTags = [];
-            let currentTag = "";
-            let tagFound = false;
+        for(let i = 0; i < postBody.length; i++) {
+            let char = postBody[i];
 
-            for(let i = 0; i < postBody.length; i++) {
-                let char = postBody[i];
-                if(char === "#") {
-                    tagFound = true;
-                }
-
-                if(tagFound) {
-                    currentTag += char;
-                }
-
-                if(tagFound && (char === " " || i === postBody.length - 1)) { 
-                    allTags.push(currentTag);
-                    currentTag = "";
-                }
+            if(tagFound) {
+                currentTag += char;
             }
 
-            makePostSubmit(postBody, allTags, image); // Sending back to parent to send POST req
+            if(tagFound && (char === " " || i === postBody.length - 1)) { 
+                tags.push(currentTag);
+                currentTag = "";
+            }
+
+            if(char === "#") {
+                tagFound = true;
+            }
+        }
+
+        return tags;
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        if((wordCount >= 0 && wordCount < 280) || image) {
+            let tags = findTags();
+
+            await makePostSubmit(postBody, tags, image);
 
             // Resetting states
             setWordCount(280); 
@@ -57,14 +63,17 @@ const MakePostForm = ({ makePostSubmit }) => {
     }
 
     const onTextAreaType = (e) => {
-        // Assigning helper variables
         let post = e.target.value
+        let deletedLength = postBody.length - post.length;
+        let addedLength = post.length - postBody.length;
 
         if(post.length < postBody.length) {
-            setWordCount(wordCount + (postBody.length - post.length));
+            setWordCount(wordCount + deletedLength);
+
         } else if (post.length > postBody.length) {
-            setWordCount(wordCount - (post.length - postBody.length));
+            setWordCount(wordCount - addedLength);
         }
+
         setPostBody(post);
     }
 
