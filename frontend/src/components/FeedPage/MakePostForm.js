@@ -53,7 +53,7 @@ const MakePostForm = ({ makePostSubmit }) => {
         if((wordCount >= 0 && wordCount < 280) || image) {
             let tags = findTags();
 
-            await makePostSubmit(postBody, tags, image);
+            await makePostSubmit({postBody, tags, image});
 
             // Resetting states
             setWordCount(280); 

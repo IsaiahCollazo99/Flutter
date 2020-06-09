@@ -29,11 +29,11 @@ const FeedPage = () => {
         getPostsCall();
     }, [])
 
-    const makePostSubmit = async (postBody, tags, image) => {
-        if(image) {
-            uploadPicture('post_pictures/', {postBody, tags, image}, createPost, currentUser);
+    const makePostSubmit = async ( postObj ) => {
+        if(postObj.image) {
+            uploadPicture('post_pictures/', postObj, createPost, currentUser);
         } else {
-            await createPost({postBody, tags, image}, currentUser);
+            await createPost(postObj, currentUser);
         }
         getPostsCall();
     }

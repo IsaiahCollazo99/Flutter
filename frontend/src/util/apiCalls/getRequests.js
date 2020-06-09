@@ -23,3 +23,32 @@ export const getAllPosts = async (currentUser, updateUser) => {
         console.log(error);
     }
 }
+
+export const getPostLikers = async (postId) => {
+    try {
+        let res = await axios.get(API + "/api/posts/" + postId + "/likes");
+    
+        let likersObj = {};
+        
+        res.data.likers.forEach(liker => {
+            if(!likersObj[liker.liker_id]) {
+                likersObj[liker.liker_id] = liker.liker_id;
+            }
+        })
+
+        return likersObj;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getPostById = async ( id ) => {
+    try {
+        let res = await axios.get(API + "/api/posts/" + id);
+    
+        return res.data.post;
+
+    } catch(error) {
+        console.log(error);
+    }
+}

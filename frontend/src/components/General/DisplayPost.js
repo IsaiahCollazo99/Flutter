@@ -1,68 +1,56 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { apiURL } from '../../util/apiURL';
-import '../../css/general/DisplayPost.css';
 import { AuthContext } from '../../providers/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as unlikedHeart } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as likedHeart, 
-         faSync as repostIcon } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as likedHeart, faSync as repostIcon } from '@fortawesome/free-solid-svg-icons';
+import { likePost as postLike, createRepost } from '../../util/apiCalls/postRequests';
+import { getPostLikers, getPostById } from '../../util/apiCalls/getRequests';
+import { deleteLike, deletePost } from '../../util/apiCalls/miscRequests';
 import blankProfile from '../../assets/images/blankProfile.png';
+import '../../css/general/DisplayPost.css';
 
 const DisplayPost = () => {
-    const { postId } = useParams();
-    const [post, setPost] = useState({});
-    const [loading, setLoading] = useState(true); // For comments
-    const [ likers, setLikers ] = useState({});
-    const API = apiURL();
-    const history = useHistory();
     const { currentUser } = useContext(AuthContext);
-
-    const fetchPost = async () => {
-        let res = await axios.get(API + "/api/posts/" + postId);
-
-        setTimeout(() => {
-            setPost(res.data.post);
-            setLoading(false);
-        }, 500);
-
-    }
-
-    const getLikers = async () => {
-        try {
-            let res = await axios.get(API + "/api/posts/" + postId + "/likes");
-        
-            let likersObj = {};
-            
-            res.data.likers.forEach(liker => {
-                if(!likersObj[liker.liker_id]) {
-                    likersObj[liker.liker_id] = liker.liker_id;
-                }
-            })
+    const { postId } = useParams();
+    const [ post, setPost ] = useState({});
+    const [ likers, setLikers ] = useState({});
     
-            setLikers(likersObj);
-        } catch (error) {
-            console.log(error)
-        }
+    const history = useHistory();
 
+    const setupPost = async () => {
+        try {
+            const postById = await getPostById(postId);
+            const postLikers = await getPostLikers(postId);
+
+            setTimeout(() => {
+                setPost(postById);
+                setLikers(postLikers);
+            }, 1000)
+
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        fetchPost();
-        getLikers();
+        setupPost();
     }, [])
 
-    const deletePost = async () => {
-        await axios.delete(API + "/api/posts/" + post.id);
+    const handleDelete = async () => {
+        await deletePost(postId);
         history.push("/");
     }
 
     const displayDelete = () => {
+        const { poster_id: posterId } = post;
+        const { id: userId } = currentUser;
+        const adminId = "2uSTOBiWepWyjyoadawGF0Jvtyh2"
+
         if(currentUser) {
-            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2") {
+            if(userId === posterId || userId === adminId) {
                 return (
-                    <p onClick={deletePost} className="deleteDisplay">Delete</p>
+                    <p onClick={handleDelete} className="deleteDisplay">Delete</p>
                 )
             } else {
                 return (
@@ -73,8 +61,9 @@ const DisplayPost = () => {
     }
 
     const displayRepost = () => {
+        const { is_retweet, retweeter_user: retweeter } = post;
         if(currentUser) {
-            if(post.is_retweet && post.retweeter_user === currentUser.username) {
+            if(is_retweet && retweeter === currentUser.username) {
                 return (
                     <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
                 )
@@ -91,18 +80,14 @@ const DisplayPost = () => {
 
     }
 
-    const unlikePost = async (e) => {
-        const post_id = e.target.parentNode.parentNode.title;
-        await axios.delete(API + `/api/likes?liker_id=${currentUser.id}&post_id=${post_id}`);
-        fetchPost();
-        getLikers();
+    const unlikePost = async () => {
+        await deleteLike(currentUser.id, postId);
+        setupPost();
     }
 
-    const likePost = async (e) => {
-        const post_id = e.target.parentNode.title;
-        await axios.post(API + "/api/likes", {liker_id: currentUser.id, post_id});
-        fetchPost();
-        getLikers();
+    const likePost = async () => {
+        await postLike({liker_id: currentUser.id, post_id: postId});
+        setupPost();
     }
 
     const displayLike = () => {
@@ -135,24 +120,11 @@ const DisplayPost = () => {
 
     }
 
-    const repost = async (e) => {
+    const repost = async () => {
         try {
-            const pathParent = e.target.parentNode.parentNode.title;
-            const svgParent = e.target.parentNode.title;
-            const retweeted_id = pathParent ? pathParent : svgParent;
-            const { poster_id, body, tags, image } = post;
-            const repostObj = {
-                poster_id,
-                body,
-                tags,
-                created_at: new Date().toString(),
-                is_retweet: true,
-                retweeter_user: currentUser.username,
-                retweeted_id,
-                image
-            }
-            await axios.post(API + "/api/posts", repostObj);
-            fetchPost();
+            await createRepost(post, currentUser.username, postId);
+
+            setupPost();
         } catch(error) {
             console.log(error);
         }
@@ -160,10 +132,11 @@ const DisplayPost = () => {
     }
 
     const displayRepostUser = () => {
-        if(post.is_retweet) {
+        const { is_retweet, retweeter_user: retweeter } = post;
+        if(is_retweet) {
             return (
                 <p className="isDisplayRepost">
-                    <Link to={`/${post.retweeter_user}`}>{post.retweeter_user}</Link> reposted:
+                    <Link to={`/${retweeter}`}>{retweeter}</Link> reposted:
                 </p>
             )
         } else {
@@ -205,7 +178,7 @@ const DisplayPost = () => {
 
                         {post.image ? <img src={post.image} alt={post.username} /> : null}
                         
-                        <div className="displayPostActivity" title={post.id}>
+                        <div className="displayPostActivity">
                             {displayLike()}
                             {post.like_count}
 
