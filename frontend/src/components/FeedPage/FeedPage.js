@@ -1,88 +1,55 @@
 import React, { useEffect, useState, useContext } from 'react';
 import firebase from 'firebase';
-import axios from 'axios';
-import { apiURL } from '../../util/apiURL';
-import Post from '../General/Post';
 import MakePostForm from './MakePostForm';
+import Post from '../../components/General/Post';
 import { AuthContext } from '../../providers/AuthContext';
+import { getAllPosts } from '../../util/apiCalls/getRequests';
+import { createPost } from '../../util/apiCalls/postRequests';
 import '../../css/feedPage/FeedPage.css';
 
 const FeedPage = () => {
     const { currentUser, updateUser } = useContext(AuthContext);
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const API = apiURL();
-    
-    const getAllPost = async () => {
-        try {
-            if(currentUser) {
-                if(currentUser.id && !currentUser.username) {
-                    while(!currentUser.username) {
-                        updateUser(currentUser);
-                    }
-                }
-            }
-            
-            let res = await axios({
-                method: "GET",
-                url: API + "/api/posts"
-            });
-            
-            let dbPosts = res.data.posts;
+    const [ posts, setPosts ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
 
+    const getPostsCall = () => {
+        getAllPosts(currentUser, updateUser).then(posts => {
             setTimeout(() => {
-                setPosts(dbPosts.map((post) => {
+                setPosts(posts.map(post => {
                     return (
-                        <Post post={post} onDelete={getAllPost} key={post.id}/>
+                        <Post post={post} onDelete={getPostsCall} key={post.id}/>
                     )
                 }));
                 setLoading(false);
             }, 1000)
-
-        } catch(error) {
-            console.log(error);
-        }
+        });
     }
 
     useEffect(() => {
-        getAllPost();
+        getPostsCall();
     }, [])
-
-    const postRequest = async (post) => {
-        const { postBody: body, tags, image } = post;
-        await axios.post(API + "/api/posts", {
-            poster_id: currentUser.id, 
-            body,
-            tags, 
-            image,
-            is_retweet: false,
-            created_at: new Date().toString()
-        })
-       
-        getAllPost();
-    }
 
     const uploadPicture = async (post) => {
         let storageRef = firebase.storage().ref('post_pictures/' + post.image.name);
         let upload = storageRef.put(post.image);
 
         upload.on('state_changed', snapshot => {
-
         }, error => {
             console.log(error);
             throw error;
         },async  () => {
             let image = await upload.snapshot.ref.getDownloadURL();
-            postRequest({postBody: post.postBody, tags: post.tags, image});
+            await createPost({postBody: post.postBody, tags: post.tags, image}, currentUser);
         })
     }
 
-    const makePostSubmit = (postBody, tags, image) => {
+    const makePostSubmit = async (postBody, tags, image) => {
         if(image) {
-            uploadPicture({postBody, tags, image});
+            await uploadPicture({postBody, tags, image});
         } else {
-            postRequest({postBody, tags, image});
+            await createPost({postBody, tags, image}, currentUser);
         }
+        getPostsCall();
     }
 
     return (
