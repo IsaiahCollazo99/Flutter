@@ -10,9 +10,6 @@ const MakePostForm = ({ makePostSubmit }) => {
     const [ wordCount, setWordCount ] = useState(280);
     const [ wordCountStyle, setWordCountStyle ] = useState({ color: "Green" });
     const [ postBody, setPostBody ] = useState("");
-    const [ tagFound, setTagFound ] = useState(false);
-    const [ tags, setTags ] = useState([]);
-    const [ currTag, setCurrTag ] = useState("");
     const [ image, setImage ] = useState(null);
 
     useEffect(() => {
@@ -25,27 +22,36 @@ const MakePostForm = ({ makePostSubmit }) => {
         }
     }, [wordCount])
 
-    useEffect(() => {
-        setTagFound(false);
-        setCurrTag(""); 
-    }, [tags])
-
     const onSubmit = (e) => {
         e.preventDefault();
 
         // Only allow a post to be sent if it's between 0 and 280 characters
         if((wordCount >= 0 && wordCount < 280) || image) {
-            let allTags = [...tags];
+            let allTags = [];
+            let currentTag = "";
+            let tagFound = false;
 
-            if(tagFound) {
-                allTags.push(currTag);
+            for(let i = 0; i < postBody.length; i++) {
+                let char = postBody[i];
+                if(char === "#") {
+                    tagFound = true;
+                }
+
+                if(tagFound) {
+                    currentTag += char;
+                }
+
+                if(tagFound && (char === " " || i === postBody.length - 1)) { 
+                    allTags.push(currentTag);
+                    currentTag = "";
+                }
             }
+
             makePostSubmit(postBody, allTags, image); // Sending back to parent to send POST req
 
             // Resetting states
             setWordCount(280); 
             setPostBody("");
-            setTags([]);
             setImage(null);
         }
     }
@@ -53,31 +59,6 @@ const MakePostForm = ({ makePostSubmit }) => {
     const onTextAreaType = (e) => {
         // Assigning helper variables
         let post = e.target.value
-        let lastChar = post[post.length - 1]
-
-        // If currently typing a tag
-        if(tagFound) {
-            // If the last character is a space then the tag is done
-            if(lastChar === " ") {
-                setTags([...tags, currTag]); // Add the tag to the tags arr
-            } else {
-                // Check if the last character was deleted
-                if(post.length < postBody.length) {
-                    // Remove the last character of the currTag
-                    setCurrTag(currTag.slice(0, currTag[currTag.length -1]))
-                } else {
-                    // Add the last character to the current Tag
-                    setCurrTag(currTag + lastChar);
-                }
-
-            }
-        }
-        
-        // Check if the last character was a #
-        if(lastChar === "#") {
-            // Set tagFound to true, and start creating the current tag
-            setTagFound(true);
-        }
 
         if(post.length < postBody.length) {
             setWordCount(wordCount + (postBody.length - post.length));
