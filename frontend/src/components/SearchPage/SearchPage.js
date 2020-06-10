@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import queryString from 'query-string';
-import axios from 'axios';
-import { apiURL } from '../../util/apiURL';
+import { parse as parseQuery } from 'query-string';
+import { useInput } from '../../util/customHooks';
+import { searchTags, searchUsers, searchAll } from '../../util/apiCalls/getRequests';
 import Post from '../General/Post';
 import UserCard from '../General/UserCard';
-import { useInput } from '../../util/customHooks';
 import '../../css/searchPage/SearchPage.css';
 
 const SearchPage = ({ handleSearch }) => {
     let location = useLocation();
-    let parsed = queryString.parse(location.search);;
-    const API = apiURL();
-    const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(true);
+    let parsed = parseQuery(location.search);;
+    const [ results, setResults ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
     const searchBar = useInput("")
 
-    const getResults = async (searchValue) => {
+    const getResults = async ( searchValue ) => {
         try {
-            let res;
             if(searchValue[0] === "#") {
                 let slicedSearch = searchValue.slice(1);
-                res = await axios.get(API + "/api/search/tags?search=" + slicedSearch);
-                setResults(res.data.posts.map((post) => {
+                let posts = await searchTags(slicedSearch);
+
+                setResults(posts.map((post) => {
                     return (
                         <Post post={post} key={post.id} onDelete={getResults} />
                     )
                 }))
+
             } else if(searchValue[0] === "@") {
                 let slicedSearch = searchValue.slice(1);
-                res = await axios.get(API + "/api/search/users?search=" + slicedSearch);
-                setResults(res.data.users.map((user) => {
+                let users = await searchUsers(slicedSearch);
+
+                setResults(users.map((user) => {
                     return (
                         <UserCard user={user} key={user.id}/>
                     )
                 }))
+
             } else {
-                let encodedSearch = encodeURIComponent(searchValue)
-                res = await axios.get(API + "/api/search/all?search=" + encodedSearch);
-                const { posts, users } = res.data;
+                let data = await searchAll(searchValue);
+                const { posts, users } = data;
                 let postComponents = [null];
                 let usersComponents = [null];
 

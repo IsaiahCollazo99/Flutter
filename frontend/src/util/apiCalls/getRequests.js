@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiURL } from '../../util/apiURL';
+
 const API = apiURL();
 
 export const getAllPosts = async (currentUser, updateUser) => {
@@ -85,6 +86,34 @@ export const getUserPosts = async ( username ) => {
 export const usernameCheck = async ( username ) => {
     try {
         await axios.get(API + "/api/users/username/" + username);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const searchTags = ( search ) => {
+    try {
+        let res = await axios.get(API + "/api/search/tags?search=" + search);
+        return res.data.posts;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const searchUsers = ( search ) => {
+    try {
+        let res = await axios.get(API + "/api/search/users?search=" + search);
+        return res.data.users;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const searchAll = ( search ) => {
+    try {
+        let encodedSearch = encodeURIComponent(search)
+        let res = await axios.get(API + "/api/search/all?search=" + encodedSearch);
+        return res.data;
     } catch (error) {
         throw error;
     }
