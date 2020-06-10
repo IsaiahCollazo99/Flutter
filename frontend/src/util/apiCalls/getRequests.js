@@ -52,3 +52,13 @@ export const getPostById = async ( id ) => {
         console.log(error);
     }
 }
+
+export const getUser = async ( id ) => {
+    try {
+        let res = await axios.get(API + "/api/users/" + id);
+
+        return res.data.user;
+    } catch (error) {
+        console.log(error);
+    }
+}

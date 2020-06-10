@@ -5,6 +5,7 @@ import '../../css/general/UserCard.css';
 
 const UserCard = ({ user }) => {
     let profilePic = user.profile_pic ? user.profile_pic : blankProfile;
+    
     return (
         <div className="userCardContainer">
             <div className="userCardLeft">

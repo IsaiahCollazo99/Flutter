@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { AuthRoute } from '../../util/routesUtil';
 import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
-import { AuthRoute } from '../../util/routesUtil';
 import '../../css/logInSignUp/Login.css';
 
 const LogIn = () => {

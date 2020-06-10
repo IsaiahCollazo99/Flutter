@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { logIn } from '../../util/firebaseFunctions';
+import { getUser } from '../../util/apiCalls/getRequests';
 import '../../css/logInSignUp/LogInForm.css';
 
 const LogInForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState(null);
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ error, setError ] = useState(null);
     const history = useHistory();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await logIn(email, password);
+            let res = await logIn(email, password);
+            await getUser(res.user.uid);
             history.push("/")
         } catch (error) {
-            setError(error.message);
+            if(error.response) {
+                setError("There was a problem with your login");
+            } else {
+                setError(error.message);
+            }
         }      
     }
         

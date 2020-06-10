@@ -25,7 +25,7 @@ const Post = ({ post, onDelete }) => {
         getLikers();
     }, [])
 
-    const displayPost = (e) => {
+    const pushDisplayPost = (e) => {
         if(e.target.nodeName === "DIV") {
             history.push(`/${post.username}/status/${post.id}`);
         }
@@ -37,12 +37,11 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayDelete = () => {
-        const { poster_id, retweeter_user: retweeter } = post;
-        const { username: currentUsername } = currentUser
-        const adminId = "2uSTOBiWepWyjyoadawGF0Jvtyh2";
-
-        if(currentUser) {
-            if(currentUser.id === poster_id || currentUser.id === adminId || currentUsername === retweeter) {
+        if (currentUser) {
+            const { poster_id, retweeter_user: retweeter } = post;
+            const { username: currentUsername, id: userId } = currentUser
+            const adminId = "2uSTOBiWepWyjyoadawGF0Jvtyh2";
+            if(userId === poster_id || userId === adminId || currentUsername === retweeter) {
                 return (
                     <p onClick={deletePost} className="deletePost">Delete</p>
                 )
@@ -55,44 +54,51 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayRepost = () => {
-        const { retweeter_user: retweeter, is_retweet } = post;
-        const { username: currentUsername } = currentUser;
-        
         if(currentUser) {
-            if(is_retweet && (retweeter === currentUsername)) {
-                return (
-                    <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
-                )
+            const { retweeter_user: retweeter, is_retweet } = post;
+            const { username: currentUsername } = currentUser;
+            
+            if(currentUser) {
+                if(is_retweet && (retweeter === currentUsername)) {
+                    return (
+                        <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
+                    )
+                } else {
+                    return (
+                        <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                    )
+                }
             } else {
                 return (
-                    <FontAwesomeIcon className="repost" icon={repostIcon} onClick={repost}/>
+                    <FontAwesomeIcon className="repost" icon={repostIcon}/>
                 )
             }
-        } else {
-            return (
-                <FontAwesomeIcon className="repost" icon={repostIcon}/>
-            )
         }
-
     }
 
-    const unlikePost = async (e) => {
-        await deleteLike(currentUser.id, post.id);
-        onDelete();
-        getLikers();
-    }
-
-    const likePost = async (e) => {
-        await postLike({liker_id: currentUser.id, post_id: post.id});
-        onDelete();
-        getLikers();
-    }
-
-    const repost = async (e) => {
-        try {
-            const { id: retweeted_id } = post;
-            await createRepost(post, currentUser.username, retweeted_id)
+    const unlikePost = async () => {
+        if(currentUser) {
+            await deleteLike(currentUser.id, post.id);
             onDelete();
+            getLikers();
+        }
+    }
+
+    const likePost = async () => {
+        if(currentUser) {
+            await postLike({liker_id: currentUser.id, post_id: post.id});
+            onDelete();
+            getLikers();
+        }
+    }
+
+    const repost = async () => {
+        try {
+            if(currentUser) {
+                const { id: retweeted_id } = post;
+                await createRepost(post, currentUser.username, retweeted_id)
+                onDelete();
+            }
         } catch(error) {
             console.log(error);
         }
@@ -145,7 +151,7 @@ const Post = ({ post, onDelete }) => {
     const profilePic = post.profile_pic ? post.profile_pic : blankProfile;
     
     return (
-        <div className="postContainer" onClick={displayPost}>
+        <div className="postContainer" onClick={pushDisplayPost}>
             {displayRepostUser()}
             <div className="postLeft">
                 <img src={profilePic} alt={post.name}/>
