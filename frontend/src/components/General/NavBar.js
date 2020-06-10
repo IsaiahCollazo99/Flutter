@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import '../../css/general/NavBar.css';
 import { logOut } from '../../util/firebaseFunctions';
 import { AuthContext } from '../../providers/AuthContext';
 import logo from '../../assets/images/logo.png';
 import logoButterfly from '../../assets/images/logo_butterfly.png';
+import '../../css/general/NavBar.css';
 
 const NavBar = () => {
     const { currentUser } = useContext(AuthContext);

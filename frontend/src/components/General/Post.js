@@ -1,33 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import '../../css/general/Post.css';
 import { useHistory, Link } from 'react-router-dom';
-import { AuthContext } from '../../providers/AuthContext';
-import { apiURL } from '../../util/apiURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as unlikedHeart } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as likedHeart, 
-         faSync as repostIcon } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as likedHeart, faSync as repostIcon } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../providers/AuthContext';
+import { getPostLikers } from '../../util/apiCalls/getRequests';
+import { likePost as postLike, createRepost } from '../../util/apiCalls/postRequests';
+import { deletePost as deletePostCall, deleteLike } from '../../util/apiCalls/miscRequests';
 import blankProfile from '../../assets/images/blankProfile.png';
+import '../../css/general/Post.css';
 
 const Post = ({ post, onDelete }) => {
     const { currentUser } = useContext(AuthContext);
     const [ likers, setLikers ] = useState({});
     const history = useHistory();
-    const API = apiURL();
 
     const getLikers = async () => {
-        let res = await axios.get(API + "/api/posts/" + post.id + "/likes");
-        
-        let likersObj = {};
-        
-        res.data.likers.forEach(liker => {
-            if(!likersObj[liker.liker_id]) {
-                likersObj[liker.liker_id] = liker.liker_id;
-            }
-        })
+        let likersIds = await getPostLikers(post.id);
 
-        setLikers(likersObj);
+        setLikers(likersIds);
     }
 
     useEffect(() => {
@@ -41,13 +32,17 @@ const Post = ({ post, onDelete }) => {
     }
 
     const deletePost = async () => {
-        await axios.delete(API + "/api/posts/" + post.id);
+        await deletePostCall(post.id);
         onDelete();
     }
 
     const displayDelete = () => {
+        const { poster_id, retweeter_user: retweeter } = post;
+        const { username: currentUsername } = currentUser
+        const adminId = "2uSTOBiWepWyjyoadawGF0Jvtyh2";
+
         if(currentUser) {
-            if(currentUser.id === post.poster_id || currentUser.id === "2uSTOBiWepWyjyoadawGF0Jvtyh2" || currentUser.user === post.retweeter_user) {
+            if(currentUser.id === poster_id || currentUser.id === adminId || currentUsername === retweeter) {
                 return (
                     <p onClick={deletePost} className="deletePost">Delete</p>
                 )
@@ -60,8 +55,11 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayRepost = () => {
+        const { retweeter_user: retweeter, is_retweet } = post;
+        const { username: currentUsername } = currentUser;
+        
         if(currentUser) {
-            if(post.is_retweet && post.retweeter_user === currentUser.username) {
+            if(is_retweet && (retweeter === currentUsername)) {
                 return (
                     <FontAwesomeIcon className="currentUserRepost" icon={repostIcon}/>
                 )
@@ -79,36 +77,21 @@ const Post = ({ post, onDelete }) => {
     }
 
     const unlikePost = async (e) => {
-        const post_id = e.target.parentNode.parentNode.title;
-        await axios.delete(API + `/api/likes?liker_id=${currentUser.id}&post_id=${post_id}`);
+        await deleteLike(currentUser.id, post.id);
         onDelete();
         getLikers();
     }
 
     const likePost = async (e) => {
-        const post_id = e.target.parentNode.title;
-        await axios.post(API + "/api/likes", {liker_id: currentUser.id, post_id});
+        await postLike({liker_id: currentUser.id, post_id: post.id});
         onDelete();
         getLikers();
     }
 
     const repost = async (e) => {
         try {
-            const pathParent = e.target.parentNode.parentNode.title;
-            const svgParent = e.target.parentNode.title;
-            const retweeted_id = pathParent ? pathParent : svgParent;
-            const { poster_id, body, tags, image } = post;
-            const repostObj = {
-                poster_id,
-                body,
-                tags,
-                created_at: new Date().toString(),
-                is_retweet: true,
-                retweeter_user: currentUser.username,
-                retweeted_id, 
-                image
-            }
-            await axios.post(API + "/api/posts", repostObj);
+            const { id: retweeted_id } = post;
+            await createRepost(post, currentUser.username, retweeted_id)
             onDelete();
         } catch(error) {
             console.log(error);
@@ -147,10 +130,11 @@ const Post = ({ post, onDelete }) => {
     }
 
     const displayRepostUser = () => {
-        if(post.is_retweet) {
+        const { is_retweet, retweeter_user: retweeter } = post;
+        if(is_retweet) {
             return (
                 <p className="isRepost">
-                    <Link to={`/${post.retweeter_user}`}>{post.retweeter_user}</Link> reposted:
+                    <Link to={`/${retweeter}`}>{retweeter}</Link> reposted:
                 </p>
             )
         } else {
