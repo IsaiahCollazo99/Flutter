@@ -23,7 +23,7 @@ module.exports = {
             const { liker_id, post_id } = req.query;
             let like = await db.one(`
              DELETE FROM likes
-             WHERE liker_id=$1 AND post_id=$2 RETURNING *`, [liker_id, post_id]);
+             WHERE liker_id=$1 AND post_id=$2`, [liker_id, post_id]);
 
             res.status(200).json({
                 status: "OK",
