@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
-import { apiURL } from '../../util/apiURL';
+import { FaSpinner } from 'react-icons/fa';
 import { signUp, uploadPicture } from '../../util/firebaseFunctions'
 import { useInput } from '../../util/customHooks';
-import { FaSpinner } from 'react-icons/fa';
+import { createUser } from '../../util/apiCalls/postRequests';
+import { usernameCheck } from '../../util/apiCalls/getRequests';
 import '../../css/logInSignUp/SignUpForm.css';
 
 const SignUpForm = () => {
@@ -13,28 +12,17 @@ const SignUpForm = () => {
     const password = useInput("");
     const name = useInput("");
     const username = useInput("");
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [ profilePicture, setProfilePicture ] = useState(null);
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState(null);
+    const [ emailClass, setEmailClass ] = useState(null);
+    const [ usernameClass, setUsernameClass ] = useState(null);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const history = useHistory();
-    const API = apiURL();
-
-    const [emailClass, setEmailClass] = useState(null);
-    const [usernameClass, setUsernameClass] = useState(null);
 
     const postUser = async ( firebaseUser ) => {
         try {
-            const userObj = {
-                id: firebaseUser.id,
-                email: email.value,
-                full_name: name.value,
-                username: username.value,
-                profile_pic: firebaseUser.url
-            }
-            
-            await axios.post(API + "/api/users", userObj)
-    
+            await createUser(firebaseUser, email.value, name.value, username.value);
             setError(null);
             history.push("/")
             setLoading(false);
@@ -48,8 +36,7 @@ const SignUpForm = () => {
         setLoading(true);
 
         try {
-            // Check to see if a user by the entered username exists
-            await axios.get(API + "/api/users/username/" + username.value);
+            await usernameCheck(username.value);
 
             const { user: firebaseUser } = await signUp(email.value, password.value);
 
@@ -71,6 +58,7 @@ const SignUpForm = () => {
                 setEmailClass("error");
                 setUsernameClass(null);
             }
+            setLoading(false);
         }
     }
 

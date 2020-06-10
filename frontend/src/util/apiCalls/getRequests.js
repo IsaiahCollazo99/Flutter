@@ -62,3 +62,11 @@ export const getUser = async ( id ) => {
         console.log(error);
     }
 }
+
+export const usernameCheck = async ( username ) => {
+    try {
+        await axios.get(API + "/api/users/username/" + username);
+    } catch (error) {
+        throw error;
+    }
+}

@@ -35,3 +35,19 @@ export const createRepost = async ( post, username, retweeted_id ) => {
     
    return await axios.post(API + "/api/posts", repostObj);
 }
+
+export const createUser = async ( user, email, full_name, username ) => {
+    try {
+        const userObj = {
+            id: user.id,
+            email,
+            full_name,
+            username,
+            profile_pic: user.url
+        }
+        
+        await axios.post(API + "/api/users", userObj)
+    } catch (error) {
+        console.log(error);
+    }
+}
