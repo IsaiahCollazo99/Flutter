@@ -13,10 +13,7 @@ export const getAllPosts = async (currentUser, updateUser) => {
             }
         }
         
-        let res = await axios({
-            method: "GET",
-            url: API + "/api/posts"
-        });
+        let res = await axios.get(API + "/api/posts");
         
         return res.data.posts;
 
@@ -25,7 +22,7 @@ export const getAllPosts = async (currentUser, updateUser) => {
     }
 }
 
-export const getPostLikers = async (postId) => {
+export const getPostLikers = async ( postId ) => {
     try {
         let res = await axios.get(API + "/api/posts/" + postId + "/likes");
     
@@ -91,7 +88,7 @@ export const usernameCheck = async ( username ) => {
     }
 }
 
-export const searchTags = ( search ) => {
+export const searchTags = async ( search ) => {
     try {
         let res = await axios.get(API + "/api/search/tags?search=" + search);
         return res.data.posts;
@@ -100,7 +97,7 @@ export const searchTags = ( search ) => {
     }
 }
 
-export const searchUsers = ( search ) => {
+export const searchUsers = async ( search ) => {
     try {
         let res = await axios.get(API + "/api/search/users?search=" + search);
         return res.data.users;
@@ -109,7 +106,7 @@ export const searchUsers = ( search ) => {
     }
 }
 
-export const searchAll = ( search ) => {
+export const searchAll = async ( search ) => {
     try {
         let encodedSearch = encodeURIComponent(search)
         let res = await axios.get(API + "/api/search/all?search=" + encodedSearch);

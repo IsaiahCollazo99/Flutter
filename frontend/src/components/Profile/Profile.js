@@ -23,7 +23,7 @@ const Profile = () => {
     
     useEffect(() => {
         getUser();
-    }, [])
+    }, [username])
 
     const getUser = async () => {
         try {
@@ -52,6 +52,7 @@ const Profile = () => {
             setError(null);
 
         } catch(error) {
+            setPosts([]);
             setLoading(false);
             if(error.response) {
                 setError(error.response.data.error);

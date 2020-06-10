@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthRoute } from '../../util/routesUtil';
 import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
+// import SignUpFormTwo from './SignUpForm2';
 import '../../css/logInSignUp/Login.css';
 
 const LogIn = () => {
     const location = useLocation();
+    const [ signUpPage, setSignUpPage ] = useState(1);
+
+    const switchSignUpPage = () => {
+        if(signUpPage === 1) setSignUpPage(2);
+        else setSignUpPage(1);
+    }
     
     return (
         <div className="logInContainer appCenter">
@@ -15,7 +22,10 @@ const LogIn = () => {
             </AuthRoute>
 
             <AuthRoute exact path={"/login/createAccount"}>
-                <SignUpForm />
+                {signUpPage === 1 ?
+                    <SignUpForm onPageSwitch={switchSignUpPage} /> :
+                    {/* <SignUpFormTwo onPageSwitch={switchSignUpPage} /> */}
+                }
             </AuthRoute>
 
             {location.pathname === "/login" ? 
