@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { apiURL } from '../../util/apiURL';
+import { AuthContext } from '../../providers/AuthContext';
+import { useInput } from '../../util/customHooks';
+import { getUserProfile, getUserPosts } from '../../util/apiCalls/getRequests';
+import { updateUser } from '../../util/apiCalls/miscRequests';
 import Post from '../General/Post';
 import blankProfile from '../../assets/images/blankProfile.png';
 import '../../css/profile/Profile.css';
-import { AuthContext } from '../../providers/AuthContext';
-import { useInput } from '../../util/customHooks';
 
 const Profile = () => {
     const { userName: username } = useParams();
@@ -18,16 +18,18 @@ const Profile = () => {
     const { currentUser } = useContext(AuthContext);
     const nameInput = useInput("");
     const usernameInput = useInput("");
-    const [ fileInput, setFileInput ] = useState(null);
-    const history = useHistory();
 
-    const API = apiURL();
+    const history = useHistory();
+    
+    useEffect(() => {
+        getUser();
+    }, [])
 
     const getUser = async () => {
         try {
-            let user = await axios.get(API + "/api/users/username/" + username + "?userProfile=true");
-            setUser(user.data.user);
-            getUserPosts();
+            let user = await getUserProfile(username);
+            setUser(user);
+            getPosts();
         } catch (error) {
             if(error.response) {
                 setError(error.response.data.error);
@@ -36,11 +38,11 @@ const Profile = () => {
         }
     }
 
-    const getUserPosts = async () => {
+    const getPosts = async () => {
         try {
-            let res = await axios.get(API + "/api/users/" + username + "/posts");
+            let posts = await getUserPosts(username);
             setTimeout(() => {
-                setPosts(res.data.userPosts.map(post => {
+                setPosts(posts.map(post => {
                     return (
                         <Post post={post} key={post.id} />
                     )
@@ -58,10 +60,6 @@ const Profile = () => {
         }
     }
 
-    useEffect(() => {
-        getUser();
-    }, [])
-
     const editProfile = () => {
         setEditing(true);
     }
@@ -69,10 +67,14 @@ const Profile = () => {
     const submitUpdate = async () => {
         try {
             if(nameInput.value || usernameInput.value) {
-                const patchObj = { full_name: nameInput.value, username: usernameInput.value }
-                let res = await axios.patch(API + "/api/users/" + user.id, patchObj);
+                const patchObj = { 
+                    full_name: nameInput.value, 
+                    username: usernameInput.value 
+                }
+                let updated = await updateUser(user.id, patchObj)
+
                 if(usernameInput.value) {
-                    history.push("/" + res.data.user.username);
+                    history.push("/" + updated.username);
                 }
                 getUser();
             }
@@ -107,7 +109,8 @@ const Profile = () => {
         profilePic = user.profile_pic ? user.profile_pic : blankProfile;
     }
 
-
+    // If there is a current user check if the currentUser is the owner of the profile
+    // If so then justify content space evenly. Otherwise (in both cases) justify flex start
     const userInfoStyle = currentUser ? {
         'justifyContent': currentUser.username === username ? 'space-evenly' : 'flex-start'
     } : {'justifyContent': 'flex-start'}

@@ -63,6 +63,25 @@ export const getUser = async ( id ) => {
     }
 }
 
+export const getUserProfile = async ( username ) => {
+    try {
+        let res = await axios.get(API + "/api/users/username/" + username + "?userProfile=true")
+
+        return res.data.user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getUserPosts = async ( username ) => {
+    try {
+        let res = await axios.get(API + "/api/users/" + username + "/posts");
+        return res.data.userPosts;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const usernameCheck = async ( username ) => {
     try {
         await axios.get(API + "/api/users/username/" + username);
