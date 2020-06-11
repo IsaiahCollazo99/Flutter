@@ -26,7 +26,7 @@ const Post = ({ post, onDelete }) => {
     }, [])
 
     const pushDisplayPost = (e) => {
-        if(e.target.nodeName === "DIV") {
+        if (e.target.nodeName === "DIV") {
             history.push(`/${post.username}/status/${post.id}`);
         }
     }

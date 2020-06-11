@@ -5,8 +5,12 @@ import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
 // import SignUpFormTwo from './SignUpForm2';
 import '../../css/logInSignUp/Login.css';
+import { useInput } from '../../util/customHooks';
 
 const LogIn = () => {
+    const email = useInput("");
+    const password = useInput("");
+    const username = useInput("");
     const location = useLocation();
     const [ signUpPage, setSignUpPage ] = useState(1);
 
@@ -23,7 +27,7 @@ const LogIn = () => {
 
             <AuthRoute exact path={"/login/createAccount"}>
                 {signUpPage === 1 ?
-                    <SignUpForm onPageSwitch={switchSignUpPage} /> :
+                    <SignUpForm onPageSwitch={switchSignUpPage} email={email} password={password} username={username}/> :
                     {/* <SignUpFormTwo onPageSwitch={switchSignUpPage} /> */}
                 }
             </AuthRoute>

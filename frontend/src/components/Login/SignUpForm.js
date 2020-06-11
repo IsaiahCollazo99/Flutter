@@ -7,11 +7,8 @@ import { createUser } from '../../util/apiCalls/postRequests';
 import { usernameCheck } from '../../util/apiCalls/getRequests';
 import '../../css/logInSignUp/SignUpForm.css';
 
-const SignUpForm = () => {
-    const email = useInput("");
-    const password = useInput("");
+const SignUpForm = ({ email, password, username }) => {
     const name = useInput("");
-    const username = useInput("");
     const [ profilePicture, setProfilePicture ] = useState(null);
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState(null);
