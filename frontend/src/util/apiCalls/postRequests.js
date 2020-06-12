@@ -48,14 +48,15 @@ export const createRepost = async ( post, username, retweeted_id ) => {
     }
 }
 
-export const createUser = async ( user, email, full_name, username ) => {
+export const createUser = async ( user, email, full_name, username, bio ) => {
     try {
         const userObj = {
             id: user.id,
             email,
             full_name,
             username,
-            profile_pic: user.url
+            profile_pic: user.url,
+            bio
         }
         
         await axios.post(API + "/api/users", userObj)

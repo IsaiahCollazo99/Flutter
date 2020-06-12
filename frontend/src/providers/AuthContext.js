@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     
     const API = apiURL();
 
-    const updateUser = async (user) => {
+    const updateUser = async (user, i = 0) => {
         try {
             if(user) {
                 const { uid } = user;
@@ -30,7 +30,11 @@ const AuthProvider = ({ children }) => {
             }
         } catch(error) {
             if(error.response) {
-                updateUser(user);
+                if( i < 75) {
+                    updateUser(user, i + 1);
+                } else {
+                    setLoading(false);
+                }
             }
             console.log(error);
         }

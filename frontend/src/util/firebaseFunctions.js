@@ -1,4 +1,5 @@
 import firebase from '../firebase';
+import { storage } from 'firebase'
 
 export const logOut = () => firebase.auth().signOut();
 
@@ -8,12 +9,12 @@ export const signUp = (email, password) => firebase.auth().createUserWithEmailAn
 
 export const getFirebaseIdToken = () => firebase.auth().currentUser.getIdToken(false);
 
-export const uploadPicture = ( folderPath, data, callback, currentUser ) => {
+export const uploadPicture = async ( folderPath, data, callback, currentUser ) => {
     const userImg = data.image ? data.image : data;
-    let storageRef = firebase.storage().ref(folderPath + userImg.name);
+    let storageRef = storage().ref(folderPath + userImg.name);
     let upload = storageRef.put(userImg);
 
-    upload.on('state_changed', snapshot => {
+    await upload.on('state_changed', snapshot => {
     }, error => {
         console.log(error);
         throw error;

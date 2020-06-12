@@ -1,4 +1,3 @@
-// Page 2 of signup
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
@@ -8,17 +7,28 @@ import { createUser } from '../../util/apiCalls/postRequests';
 import { usernameCheck } from '../../util/apiCalls/getRequests';
 import '../../css/logInSignUp/SignUpForm.css';
 
-const SignUpFormTwo = ({ onPageSwitch }) => {
+const SignUpFormTwo = ( props ) => {
+    const {
+        onPageSwitch,
+        email,
+        password,
+        username,
+        setEmailClass,
+        setUsernameClass,
+        error,
+        setError
+    } = props;
+
     const name = useInput("");
     const [ profilePicture, setProfilePicture ] = useState(null);
     const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState(null);
+    const [ textArea, setTextArea ] = useState("");
 
     const history = useHistory();
 
     const postUser = async ( firebaseUser ) => {
         try {
-            await createUser(firebaseUser, email.value, name.value, username.value);
+            await createUser(firebaseUser, email.value, name.value, username.value, textArea);
             setError(null);
             history.push("/")
             setLoading(false);
@@ -29,6 +39,7 @@ const SignUpFormTwo = ({ onPageSwitch }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        debugger;
         setLoading(true);
 
         try {
@@ -54,6 +65,7 @@ const SignUpFormTwo = ({ onPageSwitch }) => {
                 setEmailClass("error");
                 setUsernameClass(null);
             }
+            onPageSwitch();
             setLoading(false);
         }
     }
@@ -61,6 +73,18 @@ const SignUpFormTwo = ({ onPageSwitch }) => {
     const handlePicUpload = (e) => {
         setProfilePicture(e.target.files[0]);
     } 
+
+    const onTextAreaType = (e) => {
+        setTextArea(e.target.value);
+    }
+
+    const bioTextArea = {
+        value: textArea,
+        onChange: onTextAreaType,
+        placeholder: "Tell us about yourself",
+        cols: 50,
+        rows: 5
+    }
     
     return (
         <>
@@ -72,6 +96,9 @@ const SignUpFormTwo = ({ onPageSwitch }) => {
             
                 <label htmlFor="name" className="formLabel">Name: </label>
                 <input type="text" {...name} name="name" autoComplete="on" required/>
+
+                <label htmlFor="bio" className="formLabel">Bio: </label>
+                <textarea maxLength={280} {...bioTextArea}/>
 
                 <label htmlFor="profilePic" className="formLabel">Profile Picture: (Optional)</label>
                 <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handlePicUpload}/>

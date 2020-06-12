@@ -14,11 +14,11 @@
     font-size: 18px;
 }
 
-.signUpForm input{
+.signUpForm input, .signUpForm textarea {
     align-self: center;
 }
 
-.signUpForm input:not([type="submit"]):not([type="file"]) {
+.signUpForm input:not([type="submit"]):not([type="file"]), .signUpForm textarea {
     margin-bottom: 20px;
     padding: 10px 15px;
     font-size: 18px;
@@ -27,9 +27,10 @@
     border: 3px solid #b93a60;
     transition: 0.3s ease;
     color: white;
+    resize: none;
 }
 
-.signUpForm input:not([type="submit"]):focus {
+.signUpForm input:not([type="submit"]):focus, .signUpForm textarea:focus {
     outline: none;
     border: 3px solid #ff175d;
 }

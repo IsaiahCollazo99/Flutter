@@ -50,6 +50,11 @@
     color: rgb(185, 185, 185);
 }
 
+.profileBio {
+    margin-top: 10px;
+    font-family: 'Fira Sans';
+}
+
 .profileUserInfo button {
     height: fit-content;
     font-size: 18px;
@@ -70,7 +75,7 @@
     margin-top: 5px;
 }
 
-.profileInfoLeft input[type="text"] {
+.profileInfoLeft input[type="text"], .profileInfoLeft textarea {
     margin-top: 3px;
     width: 90%;
     padding: 10px 15px;
@@ -80,9 +85,10 @@
     border: 3px solid #b93a60;
     transition: 0.3s ease;
     color: white;
+    resize: none;
 }
 
-.profileInfoLeft input[type="text"]:focus {
+.profileInfoLeft input[type="text"]:focus, .profileInfoLeft textarea:focus {
     outline: none;
     border: 3px solid #ff175d;
 }

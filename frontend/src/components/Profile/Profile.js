@@ -15,6 +15,7 @@ const Profile = () => {
     const [ user, setUser ] = useState({});
     const [ editing, setEditing ] = useState(false);
     const [ loading, setLoading ] = useState(true);
+    const [ textArea, setTextArea ] = useState("");
     const { currentUser } = useContext(AuthContext);
     const nameInput = useInput("");
     const usernameInput = useInput("");
@@ -67,18 +68,21 @@ const Profile = () => {
 
     const submitUpdate = async () => {
         try {
-            if(nameInput.value || usernameInput.value) {
+            if(nameInput.value || usernameInput.value || textArea) {
                 const patchObj = { 
                     full_name: nameInput.value, 
-                    username: usernameInput.value 
+                    username: usernameInput.value ,
+                    bio: textArea
                 }
                 let updated = await updateUser(user.id, patchObj)
 
                 if(usernameInput.value) {
                     history.push("/" + updated.username);
                 }
+
                 getUser();
             }
+            setTextArea("");
             setEditing(false);
         } catch(error) {
             console.log(error);
@@ -105,6 +109,10 @@ const Profile = () => {
         }
     }
 
+    const onTextAreaType = (e) => {
+        setTextArea(e.target.value);
+    }
+
     let profilePic = blankProfile;
     if(user) {
         profilePic = user.profile_pic ? user.profile_pic : blankProfile;
@@ -115,6 +123,14 @@ const Profile = () => {
     const userInfoStyle = currentUser ? {
         'justifyContent': currentUser.username === username ? 'space-evenly' : 'flex-start'
     } : {'justifyContent': 'flex-start'}
+
+    const bioTextArea = {
+        value: textArea,
+        onChange: onTextAreaType,
+        placeholder: "Tell us about yourself",
+        cols: 50,
+        rows: 5
+    }
     
     return (
         <div className="profileContainer appCenter">
@@ -133,6 +149,16 @@ const Profile = () => {
                             Username:
                             <input type="text" className="profileUserInput" {...usernameInput} maxLength={20}/>
                         </label>}
+
+                        {!editing ? 
+                            <p className="profileBio">
+                                {user.bio}
+                            </p> :
+                            <label htmlFor="profileBioInput">
+                                Bio:
+                                <textarea {...bioTextArea}></textarea>
+                            </label>
+                        }
                     </div>
                 </div>
                 {displayEditButton()}
