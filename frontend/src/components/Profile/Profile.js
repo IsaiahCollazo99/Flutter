@@ -45,7 +45,7 @@ const Profile = () => {
             setTimeout(() => {
                 setPosts(posts.map(post => {
                     return (
-                        <Post post={post} key={post.id} />
+                        <Post post={post} key={post.id} onDelete={getPosts}/>
                     )
                 }));
                 setLoading(false);
