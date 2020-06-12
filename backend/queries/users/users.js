@@ -137,12 +137,12 @@ module.exports = {
     createUser: async (req, res, next) => {
         try {
             const { 
-                id, email, full_name, username, profile_pic
+                id, email, full_name, username, profile_pic, bio
             } = req.body;
 
             let user = await db.one(
-                `INSERT INTO users (id, email, full_name, username, profile_pic)
-                VALUES ($1, $2, $3, $4, $5) RETURNING *`, [id, email, full_name, username, profile_pic]
+                `INSERT INTO users (id, email, full_name, username, profile_pic, bio)
+                VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`, [id, email, full_name, username, profile_pic, bio]
             );
 
             res.status(200).json({
@@ -158,7 +158,7 @@ module.exports = {
     updateUser: async (req, res, next) => {
         try {
             const {
-                full_name, username
+                full_name, username, bio
             } = req.body;
 
             const { id } = req.params;
@@ -185,6 +185,16 @@ module.exports = {
                 user = {
                     ...updated
                 }
+            }
+
+            if(bio) {
+                let updated = await db.one(
+                    `UPDATE users
+                    SET bio=$1
+                    WHERE id=$2 RETURNING *`, [bio, id])
+                    user = {
+                        ...updated
+                    }
             }
 
             res.status(200).json({
