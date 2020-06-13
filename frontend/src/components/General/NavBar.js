@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { logOut } from '../../util/firebaseFunctions';
+import { logOut, logIn } from '../../util/firebaseFunctions';
 import { AuthContext } from '../../providers/AuthContext';
 import logo from '../../assets/images/logo.png';
 import logoButterfly from '../../assets/images/logo_butterfly.png';
@@ -21,8 +21,17 @@ const NavBar = () => {
             return (
                 <>
                     <NavLink to={"/login"}>Login</NavLink>
+                    <button className="demoLogin" onClick={demoLogin}>Demo Login</button>
                 </>
             )
+        }
+    }
+
+    const demoLogin = async () => {
+        if(window.location.pathname === "https://flutter-twitter.netlify.app/") {
+            await logIn('demologin@test.com', 'demologin');
+        } else {
+            await logIn('test@test.com', 'testtest');
         }
     }
     return (

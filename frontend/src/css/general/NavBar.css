@@ -29,13 +29,13 @@ nav {
     height: 70vh;
 }
 
-nav a:not(.active) {
+nav a:not(.active), .demoLogin {
     border-bottom: 1px solid #293e55;
     padding: 10px 0;
     transition: 0.3s ease;
 }
 
-nav a:not(.active):hover {
+nav a:not(.active):hover, .demoLogin:hover {
     border-bottom: 4px solid #ffffff;
     padding-bottom: 7px;
     color: #007bff;
@@ -47,6 +47,19 @@ nav a.active {
 
 .searchLink {
     display: none;
+}
+
+.demoLogin {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 32px;
+    font-family: 'Lato';
+    cursor: pointer;
+}
+
+.demoLogin:focus {
+    outline: none;
 }
 
 @media only screen and (max-width: 950px) {
