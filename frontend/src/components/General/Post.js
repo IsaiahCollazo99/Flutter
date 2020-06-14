@@ -13,6 +13,7 @@ import '../../css/general/Post.css';
 const Post = ({ post, onDelete }) => {
     const { currentUser } = useContext(AuthContext);
     const [ likers, setLikers ] = useState({});
+    const [ newPost, setNewPost ] = useState([])
     const history = useHistory();
 
     const getLikers = async () => {
@@ -21,8 +22,28 @@ const Post = ({ post, onDelete }) => {
         setLikers(likersIds);
     }
 
+    const getNewPost = () => {
+        const { body } = post;
+        const splitBody = body.split(" ");
+        splitBody.forEach((subString, i) => {
+            subString += " ";
+            if(subString[0] === "#") {
+                let encodedStr = encodeURIComponent(subString);
+                splitBody[i] = <Link to={`/search?search=${encodedStr}`}><span className="postTag">{subString}</span></Link>
+            } else if(subString[0] === "@") {
+                let userTag = subString.slice(1);
+                splitBody[i] = <Link to={`/${userTag}`} className="postUserTag">{subString}</Link>
+            } else {
+                splitBody[i] = <span>{subString}</span>
+            }
+        })
+
+        setNewPost(splitBody);
+    }
+    
     useEffect(() => {
         getLikers();
+        if(post.body) getNewPost();
     }, [])
 
     const pushDisplayPost = (e) => {
@@ -173,7 +194,7 @@ const Post = ({ post, onDelete }) => {
 
                 <div className="post">
                     <p className="postBody">
-                        {post.body}
+                        {newPost}
                     </p>
 
                     {post.image ? <img src={post.image} alt={post.username} /> : null}

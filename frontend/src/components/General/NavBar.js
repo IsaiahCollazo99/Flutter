@@ -28,10 +28,10 @@ const NavBar = () => {
     }
 
     const demoLogin = async () => {
-        if(window.location.pathname === "https://flutter-twitter.netlify.app/") {
-            await logIn('demologin@test.com', 'demologin');
-        } else {
+        if(window.location.pathname === "localhost:3000") {
             await logIn('test@test.com', 'testtest');
+        } else {
+            await logIn('demologin@test.com', 'demologin');
         }
     }
     return (

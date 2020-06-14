@@ -87,7 +87,8 @@ const SearchPage = ({ handleSearch }) => {
 
     useEffect(() => {
         getResults(searchBar.value ? searchBar.value : parsed.search);
-    }, [])
+        debugger;
+    }, [location.pathname])
 
     return (
         <div className="searchPageContainer appCenter">

@@ -123,6 +123,18 @@
     margin-top: 10px;
 }
 
+.postTag {
+    color: #007bff;
+}
+
+.postUserTag {
+    color: #007bff;
+}
+
+.postUserTag:hover {
+    text-decoration: underline;
+}
+
 .postActivity {
     margin-top: 10px;
 }
